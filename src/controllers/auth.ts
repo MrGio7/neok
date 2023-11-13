@@ -1,16 +1,25 @@
 import { generateAccessToken, generateRefreshToken } from "@libs/jwt";
 import { prisma } from "@libs/prisma";
+import { renderError } from "@libs/react";
 import bcrypt from "bcrypt";
 import { RequestHandler } from "express";
 import z from "zod";
 
 export const login: RequestHandler = async (req, res) => {
-  const { username, password } = z
+  const body = z
     .object({
       username: z.string().min(1),
       password: z.string().min(1),
     })
-    .parse(req.body);
+    .safeParse(req.body);
+
+  if (!body.success) {
+    return renderError(res, body.error.message);
+  }
+
+  const {
+    data: { password, username },
+  } = body;
 
   const user = await prisma.user.findUnique({
     where: { username },
@@ -23,7 +32,7 @@ export const login: RequestHandler = async (req, res) => {
   const isPasswordValid = bcrypt.compareSync(password, user.password);
 
   if (!isPasswordValid) {
-    return res.status(401).json({ message: "Invalid password" });
+    return renderError(res, "Invalid password");
   }
 
   const accessToken = generateAccessToken({ username });

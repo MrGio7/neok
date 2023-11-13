@@ -15,8 +15,8 @@ export default function Head({ children }: HeadProps) {
         integrity="sha384-EAzY246d6BpbWR7sQ8+WEm40J8c3dHFsqC58IgPlh4kMbRRI6P6WA+LA/qGAyAu8"
         crossOrigin="anonymous"
       />
-      <script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js" />
       <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js" />
+      <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js" />
       <link rel="stylesheet" href="/css/index.css" />
       {children}
     </head>

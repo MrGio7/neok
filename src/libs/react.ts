@@ -1,8 +1,19 @@
+import Error from "@components/error";
 import { Response } from "express";
 import { renderToStaticMarkup } from "react-dom/server";
 
 export function render(res: Response, el: JSX.Element) {
   const html = renderToStaticMarkup(el);
 
-  res.status(200).contentType("text/html").send(html);
+  return res.contentType("text/html").send(html);
+}
+
+export function renderError(res: Response, message: string) {
+  const html = renderToStaticMarkup(Error({ error: message }));
+
+  return res
+    .header("HX-Reswap", "afterbegin transition:true")
+    .header("HX-Retarget", "#errors")
+    .contentType("text/html")
+    .send(html);
 }

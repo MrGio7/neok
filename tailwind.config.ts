@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 export default {
-  content: ["./src/views/**/*.pug"],
+  content: ["./src/views/**/*.tsx"],
   theme: {
     extend: {},
   },

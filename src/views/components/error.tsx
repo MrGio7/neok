@@ -5,5 +5,9 @@ interface ErrorProps {
 }
 
 export default function Error({ error }: ErrorProps) {
-  return <li className="whitespace-pre-wrap bg-cyan-100">{error}</li>;
+  return (
+    <li remove-me="3s" className="whitespace-pre-wrap bg-red-100">
+      {error}
+    </li>
+  );
 }
