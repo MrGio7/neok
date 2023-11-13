@@ -1,0 +1,63 @@
+{
+  "name": "test-htmx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:tailwind": "tailwindcss -o src/public/css/index.css",
+    "dev:tailwind": "tailwindcss -o src/public/css/index.css --watch",
+    "dev:server": "nodemon",
+    "dev": "concurrently npm:dev:*",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "prettier": {
+    "plugins": [
+      "@prettier/plugin-pug"
+    ]
+  },
+  "nodemonConfig": {
+    "watch": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "exec": "ts-node src/app.ts",
+    "ext": "ts,tsx"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.5.2",
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "htmx.org": "^1.9.7",
+    "jsonwebtoken": "^9.0.2",
+    "pug": "^3.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tsconfig-paths": "^4.2.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@prettier/plugin-pug": "^3.0.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.6",
+    "@types/express": "^4.17.20",
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/node": "^18.18.8",
+    "@types/pug": "^2.0.8",
+    "@types/react": "^18.2.37",
+    "@types/react-dom": "^18.2.15",
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3",
+    "prisma": "^5.5.2",
+    "tailwindcss": "^3.3.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
