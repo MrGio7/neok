@@ -5,5 +5,5 @@ interface BodyProps {
 }
 
 export default function Body({ children }: BodyProps) {
-  return <body>{children}</body>;
+  return <body hx-ext="response-targets, loading-states">{children}</body>;
 }
