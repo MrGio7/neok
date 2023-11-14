@@ -7,21 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Task {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  name        String
-  description String?
-  start       DateTime?
-  end         DateTime?
-  done        Boolean   @default(false)
-  User        User      @relation(fields: [username], references: [username])
-  username    String
-
-  @@id([username, createdAt])
-}
-
 model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -31,5 +16,36 @@ model User {
   firstName String?
   lastName  String?
 
-  tasks Task[]
+  Tasks         Task[]
+  AttachedTasks UserAttachedTasks[]
+}
+
+model UserAttachedTasks {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Task          Task     @relation(fields: [taskCreator, taskCreatedAt], references: [creator, createdAt])
+  taskCreator   String
+  taskCreatedAt DateTime
+  User          User     @relation(fields: [userUsername], references: [username])
+  userUsername  String
+
+  @@id([taskCreator, taskCreatedAt, userUsername])
+}
+
+model Task {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name        String
+  description String?
+  start       DateTime?
+  end         DateTime?
+  done        Boolean   @default(false)
+
+  Creator       User                @relation(fields: [creator], references: [username])
+  creator       String
+  AttachedUsers UserAttachedTasks[]
+
+  @@id([creator, createdAt])
 }
