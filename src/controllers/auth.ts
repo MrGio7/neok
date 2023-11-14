@@ -39,14 +39,16 @@ export const login: RequestHandler = async (req, res) => {
 
   const refreshToken = generateRefreshToken({ username });
 
-  res.setHeader("authorization", `Bearer ${accessToken}`);
-  res.setHeader(
-    "Set-Cookie",
-    `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${
-      7 * 24 * 60 * 60
-    }; SameSite=Strict; Secure;`,
-  );
-  res.setHeader("HX-Redirect", "/").sendStatus(302);
+  return res
+    .setHeader("authorization", `Bearer ${accessToken}`)
+    .setHeader(
+      "Set-Cookie",
+      `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${
+        7 * 24 * 60 * 60
+      }; SameSite=Strict; Secure;`,
+    )
+    .setHeader("HX-Redirect", "/")
+    .sendStatus(302);
 };
 
 export const register: RequestHandler = async (req, res) => {
@@ -83,12 +85,21 @@ export const register: RequestHandler = async (req, res) => {
 
   const refreshToken = generateRefreshToken({ username });
 
-  res.header("authorization", `Bearer ${accessToken}`);
-  res.header(
-    "Set-Cookie",
-    `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${
-      7 * 24 * 60 * 60
-    }; SameSite=Strict; Secure;`,
-  );
-  res.header("HX-Redirect", "/").sendStatus(302);
+  return res
+    .setHeader("authorization", `Bearer ${accessToken}`)
+    .setHeader(
+      "Set-Cookie",
+      `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${
+        7 * 24 * 60 * 60
+      }; SameSite=Strict; Secure;`,
+    )
+    .setHeader("HX-Redirect", "/")
+    .sendStatus(302);
+};
+
+export const logout: RequestHandler = (_req, res) => {
+  return res
+    .clearCookie("refreshToken")
+    .setHeader("HX-Redirect", "/auth/login")
+    .sendStatus(302);
 };

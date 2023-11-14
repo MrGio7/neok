@@ -1,4 +1,4 @@
-import { login, register } from "@controllers/auth";
+import { login, logout, register } from "@controllers/auth";
 import { render } from "@libs/react";
 import Login from "@pages/login";
 import Register from "@pages/register";
@@ -11,5 +11,7 @@ authRouter.post("/login", login);
 
 authRouter.get("/register", (_req, res) => render(res, Register({})));
 authRouter.post("/register", register);
+
+authRouter.get("/logout", logout);
 
 export default authRouter;

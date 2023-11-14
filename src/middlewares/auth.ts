@@ -1,4 +1,3 @@
-import { redirectToLoginPage } from "@libs/express";
 import {
   generateAccessToken,
   verifyAccessToken,
@@ -27,10 +26,10 @@ const authMiddleware: RequestHandler = (req, res, next) => {
       return next();
     }
 
-    return redirectToLoginPage(res);
+    return res.setHeader("HX-Redirect", "/auth/login").sendStatus(302);
   } catch (error) {
     console.error(error);
-    return redirectToLoginPage(res);
+    return res.setHeader("HX-Redirect", "/auth/login").sendStatus(302);
   }
 };
 

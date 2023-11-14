@@ -11,12 +11,18 @@ const router = express.Router();
 router.use("/auth", authRouter);
 router.use("/task", authMiddleware, taskRouter);
 
-router.get("/", async (req, res) => {
-  const tasks = await prisma.task.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const username = req.context.user.username;
+    const tasks = await prisma.task.findMany({
+      orderBy: { createdAt: "desc" },
+    });
 
-  render(res, Index({ tasks }));
+    render(res, Index({ tasks, username }));
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal server error");
+  }
 });
 
 export default router;
