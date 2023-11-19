@@ -1,9 +1,11 @@
+import AddTaskForm from "@components/addTaskForm";
 import Body from "@components/body";
 import Head from "@components/head";
 import Header from "@components/header";
 import Tasks from "@components/tasks";
 import { Task } from "@prisma/client";
 import React from "react";
+import { PlusCircleSVG } from "../assets/svg";
 
 interface IndexProps {
   tasks: Task[];
@@ -16,25 +18,18 @@ export default function Index({ tasks, username }: IndexProps): JSX.Element {
       <Head />
       <Body>
         <Header username={username} />
-        <form
-          hx-post="/task/add"
-          hx-target="#tasks"
-          hx-target-error="#error"
-          hx-swap="afterbegin"
+
+        <dialog
+          id="addTaskFormDialog"
+          className="rounded bg-cyan-950 p-5 backdrop:bg-cyan-950 backdrop:bg-opacity-75 dark:bg-cyan-50"
         >
-          <input type="text" name="name" id="name" />
-          <input type="text" name="description" id="description" />
-          <button
-            type="submit"
-            className="hover:bg-teal-200"
-            data-loading-class="bg-red-100 hover:bg-red-200"
-            data-loading-class-remove="bg-teal-100 hover:bg-teal-200"
-            data-loading-disable
-          >
-            Add
-          </button>
-        </form>
+          <AddTaskForm />
+        </dialog>
         <Tasks tasks={tasks} />
+        <PlusCircleSVG
+          id="showAddTaskFormBtn"
+          className="fixed bottom-2 right-2 cursor-pointer text-6xl text-cyan-900 transition-transform hover:scale-105 active:scale-110 dark:text-cyan-100"
+        />
       </Body>
     </html>
   );

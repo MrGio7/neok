@@ -1,0 +1,1 @@
+"use strict";var t=document.getElementById("burgerBar"),n=document.getElementById("burgerBarBtn");document.addEventListener("click",function(e){if(!e.target)return;t?.contains(e.target)||(n.checked=!1)});

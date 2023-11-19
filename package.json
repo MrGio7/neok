@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:tailwind": "tailwindcss -o src/public/css/index.css",
-    "dev:tailwind": "tailwindcss -o src/public/css/index.css --watch",
-    "dev:server": "nodemon",
-    "dev": "concurrently npm:dev:*",
+    "build:tailwind": "tailwindcss -o public/css/tailwind.css",
+    "build:server": "node esbuild.app.js",
+    "build:public": "node esbuild.public.js",
+    "dev": "nodemon",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },
@@ -24,24 +24,26 @@
       "src/**/*.ts",
       "src/**/*.tsx"
     ],
-    "exec": "ts-node src/app.ts",
+    "exec": "concurrently npm:build:* & node dist/app.js",
     "ext": "ts,tsx"
   },
   "dependencies": {
     "@prisma/client": "^5.5.2",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "htmx.org": "^1.9.7",
     "jsonwebtoken": "^9.0.2",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "tailwind-merge": "^2.0.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.6",
     "@types/express": "^4.17.20",
     "@types/jsonwebtoken": "^9.0.5",
@@ -49,6 +51,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "concurrently": "^8.2.2",
+    "esbuild": "^0.19.6",
     "nodemon": "^3.0.1",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",

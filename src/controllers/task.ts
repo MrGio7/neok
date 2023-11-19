@@ -1,19 +1,22 @@
 import { RequestHandler, Response } from "express";
-import z from "zod";
+import {
+  string as zString,
+  object as zObject,
+  date as zDate,
+  boolean as zBoolean,
+} from "zod";
 import { prisma } from "../libs/prisma";
 import { render } from "@libs/react";
 import Task from "@components/task";
 
 export const add: RequestHandler = async (req, res) => {
-  const body = z
-    .object({
-      name: z.string().min(1).max(255),
-      description: z.string().min(1).max(255).optional(),
-      start: z.date().optional(),
-      end: z.date().optional(),
-      done: z.boolean().default(false),
-    })
-    .parse(req.body);
+  const body = zObject({
+    name: zString().min(1).max(255),
+    description: zString().min(1).max(255).optional(),
+    start: zDate().optional(),
+    end: zDate().optional(),
+    done: zBoolean().default(false),
+  }).parse(req.body);
 
   const username = req.context.user.username;
 
@@ -28,11 +31,9 @@ export const add: RequestHandler = async (req, res) => {
 };
 
 export const toggle: RequestHandler = async (req, res) => {
-  const body = z
-    .object({
-      createdAt: z.string(),
-    })
-    .parse(req.body);
+  const body = zObject({
+    createdAt: zString(),
+  }).parse(req.body);
 
   const username = req.context.user.username;
   const createdAt = new Date(+body.createdAt);
@@ -50,11 +51,9 @@ export const toggle: RequestHandler = async (req, res) => {
 };
 
 export const remove: RequestHandler = async (req, res) => {
-  const body = z
-    .object({
-      createdAt: z.string(),
-    })
-    .parse(req.body);
+  const body = zObject({
+    createdAt: zString(),
+  }).parse(req.body);
 
   const username = req.context.user.username;
   const createdAt = new Date(+body.createdAt);

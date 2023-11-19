@@ -1,17 +1,15 @@
 import { generateAccessToken, generateRefreshToken } from "@libs/jwt";
 import { prisma } from "@libs/prisma";
 import { renderError } from "@libs/react";
-import bcrypt from "bcrypt";
+import { hashSync, compareSync } from "bcryptjs";
 import { RequestHandler } from "express";
-import z from "zod";
+import { string as zString, object as zObject } from "zod";
 
 export const login: RequestHandler = async (req, res) => {
-  const body = z
-    .object({
-      username: z.string().min(1),
-      password: z.string().min(1),
-    })
-    .safeParse(req.body);
+  const body = zObject({
+    username: zString().min(1),
+    password: zString().min(1),
+  }).safeParse(req.body);
 
   if (!body.success) {
     return renderError(res, body.error.message);
@@ -29,7 +27,7 @@ export const login: RequestHandler = async (req, res) => {
     return res.status(404).json({ message: "User not found" });
   }
 
-  const isPasswordValid = bcrypt.compareSync(password, user.password);
+  const isPasswordValid = compareSync(password, user.password);
 
   if (!isPasswordValid) {
     return renderError(res, "Invalid password");
@@ -52,13 +50,11 @@ export const login: RequestHandler = async (req, res) => {
 };
 
 export const register: RequestHandler = async (req, res) => {
-  const { username, password, password2 } = z
-    .object({
-      username: z.string().min(1),
-      password: z.string().min(1),
-      password2: z.string().min(1),
-    })
-    .parse(req.body);
+  const { username, password, password2 } = zObject({
+    username: zString().min(1),
+    password: zString().min(1),
+    password2: zString().min(1),
+  }).parse(req.body);
 
   if (password !== password2) {
     return res.status(400).json({ message: "Passwords do not match" });
@@ -72,7 +68,7 @@ export const register: RequestHandler = async (req, res) => {
     return res.status(409).json({ message: "User already exists" });
   }
 
-  const hashedPassword = bcrypt.hashSync(password, 10);
+  const hashedPassword = hashSync(password, 10);
 
   await prisma.user.create({
     data: {

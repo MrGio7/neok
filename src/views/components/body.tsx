@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Errors from "./errors";
 
 interface BodyProps {
@@ -7,9 +7,13 @@ interface BodyProps {
 
 export default function Body({ children }: BodyProps) {
   return (
-    <body hx-ext="loading-states, remove-me">
+    <body
+      className="bg-cyan-50 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50"
+      hx-ext="loading-states, remove-me"
+    >
       {children}
       <Errors />
+      <script src="/js/index.js" />
     </body>
   );
 }

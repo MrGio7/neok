@@ -23,7 +23,7 @@ export default function BurgerBar({}: BurgerBarProps) {
           <BurgerOpenedSVG />
         </label>
 
-        <article className="absolute left-0 top-full hidden h-20 w-20 bg-red-500 peer-checked:block">
+        <article className="absolute left-0 top-full hidden peer-checked:block">
           <a href="#">GERBER</a>
         </article>
       </section>

@@ -1,0 +1,13 @@
+#ui-datepicker-div {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+.ui-datepicker-calendar th {
+  color: black;
+}
+
+.ui-datepicker td a {
+  border-radius: 6px;
+  text-align: center;
+}
