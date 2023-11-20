@@ -13,6 +13,7 @@ export default function Body({ children }: BodyProps) {
     >
       {children}
       <Errors />
+
       <script src="/js/index.js" />
     </body>
   );

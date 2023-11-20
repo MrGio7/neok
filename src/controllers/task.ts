@@ -23,7 +23,7 @@ export const add: RequestHandler = async (req, res) => {
   const task = await prisma.task.create({
     data: {
       ...body,
-      username,
+      creator: username,
     },
   });
 
@@ -43,7 +43,7 @@ export const toggle: RequestHandler = async (req, res) => {
   }
 
   const task = await prisma.task.update({
-    where: { username_createdAt: { username, createdAt } },
+    where: { creator_createdAt: { creator: username, createdAt } },
     data: { done: true },
   });
 
@@ -64,7 +64,7 @@ export const remove: RequestHandler = async (req, res) => {
 
   await prisma.task.delete({
     where: {
-      username_createdAt: { username, createdAt },
+      creator_createdAt: { creator: username, createdAt },
     },
   });
 

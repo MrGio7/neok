@@ -27,7 +27,6 @@ export default function BurgerBar({}: BurgerBarProps) {
           <a href="#">GERBER</a>
         </article>
       </section>
-      <script src="js/burgerBar.js" />
     </>
   );
 }

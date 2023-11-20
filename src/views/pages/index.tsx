@@ -6,7 +6,6 @@ import Tasks from "@components/tasks";
 import { Task } from "@prisma/client";
 import React from "react";
 import { PlusCircleSVG } from "../assets/svg";
-
 interface IndexProps {
   tasks: Task[];
   username: string;
@@ -18,13 +17,7 @@ export default function Index({ tasks, username }: IndexProps): JSX.Element {
       <Head />
       <Body>
         <Header username={username} />
-
-        <dialog
-          id="addTaskFormDialog"
-          className="rounded bg-cyan-950 p-5 backdrop:bg-cyan-950 backdrop:bg-opacity-75 dark:bg-cyan-50"
-        >
-          <AddTaskForm />
-        </dialog>
+        <AddTaskForm />
         <Tasks tasks={tasks} />
         <PlusCircleSVG
           id="showAddTaskFormBtn"

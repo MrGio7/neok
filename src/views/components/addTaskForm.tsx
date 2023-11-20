@@ -22,10 +22,9 @@ export default function AddTaskForm({}: AddTaskFormProps) {
       />
       <Input
         type="text"
-        name="taskStartDate"
         id="taskStartDate"
+        name="taskStartDate"
         label="Start Date"
-        tabIndex={-1}
       />
       <button
         type="submit"

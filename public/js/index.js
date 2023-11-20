@@ -1,1 +1,1 @@
-"use strict";var t=document.getElementById("burgerBar"),n=document.getElementById("burgerBarBtn");document.addEventListener("click",function(e){if(!e.target)return;t?.contains(e.target)||(n.checked=!1)});
+"use strict";var d=document.getElementById("addTaskFormDialog");$(function(){$("#datepicker").datepicker({dateFormat:"D, M dd"}),$("#taskStartDate").datepicker(),$("#addTaskForm").dialog({autoOpen:!1}),$("#showAddTaskFormBtn").click(function(o){$(document).on("click",function(a){console.info(a.target)}),$("#addTaskForm").dialog("open")})});
