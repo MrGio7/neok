@@ -22,7 +22,7 @@ export default function Tasks({
       .add(idx + 1, "day");
 
     return {
-      value: day.format("YYYY-MM-DD"),
+      value: day.format("Y-M-D"),
       day: day.format("ddd"),
       date: day.format("MMM DD"),
     };
@@ -62,7 +62,9 @@ export default function Tasks({
                 className="w-full"
               />
               <button type="submit">Add</button>
-              <button type="button">Details</button>
+              <button className="addTaskDetailsBtn" type="button" value={value}>
+                Details
+              </button>
             </form>
           </ul>
         </li>

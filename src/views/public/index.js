@@ -1,10 +1,10 @@
-const moment = require("moment");
-
-const addTaskFormDialog = document.getElementById("addTaskFormDialog");
-
 $(function () {
   $("#datepicker").datepicker({
     dateFormat: "D, M dd",
+  });
+
+  $("#taskStartDate").datepicker({
+    dateFormat: "yy-mm-dd",
   });
 
   $("#datepicker").change(function () {
@@ -14,6 +14,10 @@ $(function () {
     const formattedDate = selectedDate?.toISOString().split("T")[0];
 
     window.location.href = `/?date=${formattedDate}`;
+  });
+
+  $("#addTaskForm").dialog({
+    autoOpen: false,
   });
 
   $("#prevWeekBtn").click(function () {
@@ -36,18 +40,8 @@ $(function () {
     window.location.href = `/?date=${formattedDate}`;
   });
 
-  $("#taskStartDate").datepicker();
-
-  $("#addTaskForm").dialog({
-    autoOpen: false,
-  });
-
-  $("#showAddTaskFormBtn").click(function (e) {
-    $(document).on("click", function (ev) {
-      console.info(ev.target);
-    });
-
-    $("#taskStartDate").val(new Date().toLocaleDateString());
+  $(".addTaskDetailsBtn").click(function (ev) {
+    $("#taskStartDate").datepicker("setDate", new Date(ev.target.value));
 
     $("#addTaskForm").dialog("open");
   });
