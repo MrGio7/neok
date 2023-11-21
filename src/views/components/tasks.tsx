@@ -51,9 +51,7 @@ export default function Tasks({
             <form
               className="flex gap-x-2"
               hx-post="/task/add"
-              hx-vals={`{"start": "${new Date(value).toISOString()}"}`}
-              hx-target={`#tasks_${value}`}
-              hx-swap="afterbegin"
+              hx-vals={`{"start": "${value}"}`}
             >
               <input
                 type="text"

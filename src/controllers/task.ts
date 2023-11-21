@@ -5,14 +5,12 @@ import z from "zod";
 import { prisma } from "../libs/prisma";
 
 export const add: RequestHandler = async (req, res) => {
-  console.log(req.body);
-
   const body = z
     .object({
       name: z.string().min(1).max(255),
       description: z.string().min(1).max(255).optional(),
-      start: z.string().datetime().optional(),
-      end: z.string().datetime().optional(),
+      startDate: z.string().optional(),
+      endDate: z.string().optional(),
       done: z.boolean().default(false),
     })
     .parse(req.body);
@@ -21,10 +19,18 @@ export const add: RequestHandler = async (req, res) => {
 
   const task = await prisma.task.create({
     data: {
-      ...body,
+      name: body.name,
+      description: body.description,
+      start: !!body.startDate ? new Date(body.startDate) : undefined,
+      end: !!body.endDate ? new Date(body.endDate) : undefined,
+      done: body.done,
       creator: username,
     },
   });
+
+  res
+    .setHeader("HX-Retarget", `#tasks_${body.startDate}`)
+    .setHeader("HX-Reswap", "afterbegin");
 
   render(res, Task({ task }));
 };

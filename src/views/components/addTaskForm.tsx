@@ -6,15 +6,10 @@ interface AddTaskFormProps {}
 export default function AddTaskForm({}: AddTaskFormProps) {
   return (
     <form
-      hx-post="/task/add"
-      hx-target="#tasks"
-      hx-target-error="#error"
-      hx-swap="afterbegin"
       id="addTaskForm"
       className="flex flex-col gap-y-2 text-cyan-50 dark:text-cyan-950"
-      style={{
-        display: "none",
-      }}
+      style={{ display: "none" }}
+      hx-post="/task/add"
     >
       <Input type="text" name="name" id="name" label="Name" />
       <Input
@@ -23,12 +18,7 @@ export default function AddTaskForm({}: AddTaskFormProps) {
         id="description"
         label="Description"
       />
-      <Input
-        type="text"
-        id="taskStartDate"
-        name="taskStartDate"
-        label="Start Date"
-      />
+      <Input type="text" id="taskStartDate" name="start" label="Start Date" />
       <button
         type="submit"
         className="hover:bg-teal-200"
