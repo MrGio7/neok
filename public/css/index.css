@@ -1,13 +1,23 @@
-#ui-datepicker-div {
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-}
-
-.ui-datepicker-calendar th {
-  color: black;
-}
-
-.ui-datepicker td a {
-  border-radius: 6px;
+/* date styles */
+.datepicker {
+  position: relative;
+  cursor: pointer;
   text-align: center;
+}
+.datepicker input {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.datepicker input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
 }

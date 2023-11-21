@@ -18,20 +18,11 @@ export default function Head({ children }: HeadProps) {
       />
       <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js" />
       <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js" />
-      <script
-        src="https://code.jquery.com/jquery-3.7.1.min.js"
-        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-        crossOrigin="anonymous"
-      />
-      <script
-        src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
-        integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0="
-        crossOrigin="anonymous"
-      />
 
       <link
         rel="stylesheet"
-        href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+        href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.19/dist/css/tempus-dominus.min.css"
+        crossOrigin="anonymous"
       />
       <link rel="stylesheet" href="/css/index.css" />
       <link rel="stylesheet" href="/css/tailwind.css" />

@@ -1,48 +1,21 @@
-$(function () {
-  $("#datepicker").datepicker({
-    dateFormat: "D, M dd",
-  });
+import moment from "moment";
 
-  $("#taskStartDate").datepicker({
-    dateFormat: "yy-mm-dd",
-  });
+const currentUrl = new URL(window.location.href);
 
-  $("#datepicker").change(function () {
-    const selectedDate = $("#datepicker").datepicker("getDate");
-    selectedDate?.setHours(12);
+const headerDatePicker = document.getElementById("headerDatePicker");
+const headerDatePickerSpan = headerDatePicker.querySelector("span");
+const headerDatePickerInput = headerDatePicker.querySelector("input");
 
-    const formattedDate = selectedDate?.toISOString().split("T")[0];
+headerDatePickerSpan.textContent = moment(
+  currentUrl.searchParams.get("date") || new Date(),
+)
+  .utcOffset("+04:00")
+  .format("ddd, MMM DD");
 
-    window.location.href = `/?date=${formattedDate}`;
-  });
+headerDatePickerInput.addEventListener("change", (e) => {
+  headerDatePickerSpan.textContent = moment(e.target.value)
+    .utcOffset("+04:00")
+    .format("ddd, MMM DD");
 
-  $("#addTaskForm").dialog({
-    autoOpen: false,
-  });
-
-  $("#prevWeekBtn").click(function () {
-    const selectedDate = $("#datepicker").datepicker("getDate");
-    selectedDate?.setHours(12);
-    selectedDate?.setDate(selectedDate.getDate() - 7);
-
-    const formattedDate = selectedDate?.toISOString().split("T")[0];
-
-    window.location.href = `/?date=${formattedDate}`;
-  });
-
-  $("#nextWeekBtn").click(function () {
-    const selectedDate = $("#datepicker").datepicker("getDate");
-    selectedDate?.setHours(12);
-    selectedDate?.setDate(selectedDate.getDate() + 7);
-
-    const formattedDate = selectedDate?.toISOString().split("T")[0];
-
-    window.location.href = `/?date=${formattedDate}`;
-  });
-
-  $(".addTaskDetailsBtn").click(function (ev) {
-    $("#taskStartDate").datepicker("setDate", new Date(ev.target.value));
-
-    $("#addTaskForm").dialog("open");
-  });
+  window.location.href = `/?date=${e.target.value}`;
 });

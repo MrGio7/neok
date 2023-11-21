@@ -1,6 +1,7 @@
 import moment from "moment";
 import React from "react";
 import { AccountSVG } from "../assets/svg";
+import DateInput from "./DateInput";
 
 interface HeaderProps {
   username: string;
@@ -30,13 +31,15 @@ export default function Header({
         </button>
       </section>
 
-      <input
+      {/* <input
         type="text"
         id="datepicker"
         className="cursor-pointer bg-transparent text-center focus-visible:outline-none"
         defaultValue={moment(date).utcOffset("+04:00").format("ddd, MMM DD")}
         readOnly
-      />
+      /> */}
+
+      <DateInput id="headerDatePicker" />
 
       <section className="group relative flex items-center gap-x-2 place-self-end">
         <span>{username}</span>
