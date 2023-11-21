@@ -10,7 +10,7 @@ export default function Task({ task }: TaskProps): JSX.Element {
     <li id={`task-${task.createdAt.getTime()}`}>
       <span>{task.name}</span>
       <span>{task.description}</span>
-      <span>{task.createdAt?.toLocaleString("RU")}</span>
+      <span>{task.start?.toLocaleString("RU")}</span>
       <span>{task.done ? "ASD" : "QWE"}</span>
       <button
         type="button"

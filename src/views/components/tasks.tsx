@@ -1,16 +1,71 @@
 import { Task as TTask } from "@prisma/client";
 import React from "react";
 import Task from "./task";
+import moment from "moment";
+import { twMerge } from "tailwind-merge";
 
 interface TasksProps {
-  tasks: TTask[];
+  tasks?: TTask[];
+  selectedDate?: string;
 }
 
-export default function Tasks({ tasks }: TasksProps): JSX.Element {
+const today = moment().utcOffset("+04:00").format("YYYY-MM-DD");
+
+export default function Tasks({
+  tasks = [],
+  selectedDate = today,
+}: TasksProps): JSX.Element {
+  const weekDays = Array.from({ length: 7 }, (_, idx) => {
+    const day = moment(selectedDate)
+      .utcOffset("+04:00")
+      .startOf("week")
+      .add(idx + 1, "day");
+
+    return {
+      value: day.format("YYYY-MM-DD"),
+      day: day.format("ddd"),
+      date: day.format("MMM DD"),
+    };
+  });
   return (
-    <ul id="tasks">
-      {tasks.map((task) => (
-        <Task key={task.createdAt.getTime()} task={task} />
+    <ul className="flex flex-col gap-y-5 px-5">
+      {weekDays.map(({ date, day, value }, idx) => (
+        <li key={idx} className="flex flex-col gap-y-2">
+          <section
+            className={twMerge(
+              "flex justify-between border-b",
+              value === today && "text-cyan-300",
+            )}
+          >
+            <span>{day}</span>
+            <span>{date}</span>
+          </section>
+
+          <ul id={`tasks_${value}`} className="flex flex-col gap-y-5">
+            {tasks
+              .filter((task) => task.start?.toISOString().startsWith(value))
+              .map((task) => (
+                <Task key={task.createdAt.getTime()} task={task} />
+              ))}
+
+            <form
+              className="flex gap-x-2"
+              hx-post="/task/add"
+              hx-vals={`{"start": "${new Date(value).toISOString()}"}`}
+              hx-target={`#tasks_${value}`}
+              hx-swap="afterbegin"
+            >
+              <input
+                type="text"
+                name="name"
+                placeholder="Title"
+                className="w-full"
+              />
+              <button type="submit">Add</button>
+              <button type="button">Details</button>
+            </form>
+          </ul>
+        </li>
       ))}
     </ul>
   );

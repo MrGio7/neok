@@ -26,10 +26,16 @@ const authMiddleware: RequestHandler = (req, res, next) => {
       return next();
     }
 
-    return res.setHeader("HX-Redirect", "/auth/login").sendStatus(302);
+    return res
+      .setHeader("HX-Redirect", "/auth/login")
+      .setHeader("HX-Refresh", "true")
+      .redirect("/auth/login");
   } catch (error) {
     console.error(error);
-    return res.setHeader("HX-Redirect", "/auth/login").sendStatus(302);
+    return res
+      .setHeader("HX-Redirect", "/auth/login")
+      .setHeader("HX-Refresh", "true")
+      .redirect("/auth/login");
   }
 };
 

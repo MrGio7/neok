@@ -12,6 +12,9 @@ export default function AddTaskForm({}: AddTaskFormProps) {
       hx-swap="afterbegin"
       id="addTaskForm"
       className="flex flex-col gap-y-2 text-cyan-50 dark:text-cyan-950"
+      style={{
+        display: "none",
+      }}
     >
       <Input type="text" name="name" id="name" label="Name" />
       <Input
