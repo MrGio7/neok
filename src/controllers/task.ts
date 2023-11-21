@@ -9,27 +9,28 @@ export const add: RequestHandler = async (req, res) => {
     .object({
       name: z.string().min(1).max(255),
       description: z.string().min(1).max(255).optional(),
-      startDate: z.string().optional(),
-      endDate: z.string().optional(),
+      start: z.string().optional(),
+      end: z.string().optional(),
       done: z.boolean().default(false),
     })
     .parse(req.body);
 
+  console.log(body?.start);
   const username = req.context.user.username;
 
   const task = await prisma.task.create({
     data: {
       name: body.name,
       description: body.description,
-      start: !!body.startDate ? new Date(body.startDate) : undefined,
-      end: !!body.endDate ? new Date(body.endDate) : undefined,
+      start: !!body.start ? new Date(body.start) : undefined,
+      end: !!body.end ? new Date(body.end) : undefined,
       done: body.done,
       creator: username,
     },
   });
 
   res
-    .setHeader("HX-Retarget", `#tasks_${body.startDate}`)
+    .setHeader("HX-Retarget", `#tasks_${body.start}`)
     .setHeader("HX-Reswap", "afterbegin");
 
   render(res, Task({ task }));

@@ -21,8 +21,8 @@ router.get("/", authMiddleware, async (req, res) => {
       return res.redirect(`/?date=${moment().format("YYYY-MM-DD")}`);
     }
 
-    const weekStart = moment(date).add(1, "day").startOf("week").toDate();
-    const weekEnd = moment(date).add(1, "day").endOf("week").toDate();
+    const weekStart = moment(date).startOf("week").add(1, "day").toDate();
+    const weekEnd = moment(date).endOf("week").add(1, "day").toDate();
 
     const tasks = await prisma.task.findMany({
       where: { start: { gte: weekStart, lte: weekEnd } },
