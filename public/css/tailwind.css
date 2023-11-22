@@ -558,6 +558,10 @@ video {
   top: 100%;
 }
 
+.mr-auto {
+  margin-right: auto;
+}
+
 .flex {
   display: flex;
 }
@@ -572,6 +576,10 @@ video {
 
 .h-7 {
   height: 1.75rem;
+}
+
+.w-10 {
+  width: 2.5rem;
 }
 
 .w-7 {
@@ -637,6 +645,10 @@ video {
 
 .border-b {
   border-bottom-width: 1px;
+}
+
+.border-b-2 {
+  border-bottom-width: 2px;
 }
 
 .border-cyan-950 {
@@ -719,6 +731,10 @@ video {
 .text-cyan-950 {
   --tw-text-opacity: 1;
   color: rgb(8 51 68 / var(--tw-text-opacity));
+}
+
+.line-through {
+  text-decoration-line: line-through;
 }
 
 .filter {

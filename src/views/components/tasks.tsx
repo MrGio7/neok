@@ -33,7 +33,7 @@ export default function Tasks({
         <li key={idx} className="flex flex-col gap-y-2">
           <section
             className={twMerge(
-              "flex justify-between border-b",
+              "flex justify-between border-b-2",
               value === today && "text-cyan-300",
             )}
           >

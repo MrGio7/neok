@@ -68,9 +68,14 @@ export const toggle: RequestHandler = async (req, res) => {
       return res.status(400).send("Invalid date");
     }
 
+    const currentTask = await prisma.task.findUniqueOrThrow({
+      where: { creator_createdAt: { creator: username, createdAt } },
+      select: { done: true },
+    });
+
     const task = await prisma.task.update({
       where: { creator_createdAt: { creator: username, createdAt } },
-      data: { done: true },
+      data: { done: !currentTask.done },
     });
 
     render(res, Task({ task }));
