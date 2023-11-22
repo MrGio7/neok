@@ -25,8 +25,8 @@ router.get("/", authMiddleware, async (req, res) => {
     const weekEnd = moment(date).endOf("week").add(1, "day").toDate();
 
     const tasks = await prisma.task.findMany({
-      where: { start: { gte: weekStart, lte: weekEnd } },
-      orderBy: { createdAt: "desc" },
+      where: { startDate: { gte: weekStart, lte: weekEnd } },
+      orderBy: { startTime: "asc" },
     });
 
     render(res, Index({ tasks, username, date }));

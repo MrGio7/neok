@@ -1,4 +1,5 @@
 import { Task } from "@prisma/client";
+import moment from "moment";
 import React from "react";
 
 interface TaskProps {
@@ -8,9 +9,11 @@ interface TaskProps {
 export default function Task({ task }: TaskProps): JSX.Element {
   return (
     <li id={`task-${task.createdAt.getTime()}`}>
+      {!!task.startTime && (
+        <span>{moment(task.startTime).format("HH:mm")}</span>
+      )}
       <span>{task.name}</span>
       <span>{task.description}</span>
-      <span>{task.start?.toLocaleString("RU")}</span>
       <span>{task.done ? "ASD" : "QWE"}</span>
       <button
         type="button"

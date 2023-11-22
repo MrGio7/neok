@@ -23,7 +23,10 @@ export default function Index({
       <Body>
         <Header username={username} date={date} />
         <Tasks tasks={tasks} selectedDate={date} />
-        <AddTaskForm />
+
+        <dialog id="addTaskFormDialog">
+          <AddTaskForm />
+        </dialog>
       </Body>
     </html>
   );

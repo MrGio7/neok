@@ -19,3 +19,28 @@ headerDatePickerInput.addEventListener("change", (e) => {
 
   window.location.href = `/?date=${e.target.value}`;
 });
+
+const addTaskDetailsBtns = document.getElementsByClassName("addTaskDetailsBtn");
+const addTaskFormDialog = document.getElementById("addTaskFormDialog");
+const addTaskForm = document.getElementById("addTaskForm");
+const addTaskFormStartDate = document.getElementById("addTaskFormStartDate");
+
+for (let i = 0; i < addTaskDetailsBtns.length; i++) {
+  addTaskDetailsBtns[i].addEventListener("click", (e) => {
+    addTaskFormStartDate.value = moment(e.target.value).format(
+      "yyyy-MM-DDThh:mm",
+    );
+    addTaskFormDialog.showModal();
+  });
+}
+
+document.addEventListener("closeAddTaskFormDialog", (e) => {
+  addTaskFormDialog.close();
+  addTaskForm.reset();
+});
+
+addTaskFormDialog.addEventListener("click", (e) => {
+  if (e.target === addTaskFormDialog) {
+    addTaskFormDialog.close();
+  }
+});

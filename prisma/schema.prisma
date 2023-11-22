@@ -3,9 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  // url      = env("DATABASE_URL")
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -40,8 +39,10 @@ model Task {
 
   name        String
   description String?
-  start       DateTime?
-  end         DateTime?
+  startDate   DateTime? @db.Date
+  startTime   DateTime? @db.Time()
+  endDate     DateTime? @db.Date
+  endTime     DateTime? @db.Time()
   done        Boolean   @default(false)
 
   Creator       User                @relation(fields: [creator], references: [username])

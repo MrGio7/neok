@@ -43,7 +43,7 @@ export default function Tasks({
 
           <ul id={`tasks_${value}`} className="flex flex-col gap-y-5">
             {tasks
-              .filter((task) => task.start?.toISOString().startsWith(value))
+              .filter((task) => task.startDate?.toISOString().startsWith(value))
               .map((task) => (
                 <Task key={task.createdAt.getTime()} task={task} />
               ))}
