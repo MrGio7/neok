@@ -3,13 +3,14 @@ import React from "react";
 import Task from "./task";
 import moment from "moment";
 import { twMerge } from "tailwind-merge";
+import { AddSVG } from "../assets/svg";
 
 interface TasksProps {
   tasks?: TTask[];
   selectedDate?: string;
 }
 
-const today = moment().utcOffset("+04:00").format("YYYY-MM-DD");
+const today = moment().tz("Asia/Tbilisi").format("YYYY-MM-DD");
 
 export default function Tasks({
   tasks = [],
@@ -17,7 +18,7 @@ export default function Tasks({
 }: TasksProps): JSX.Element {
   const weekDays = Array.from({ length: 7 }, (_, idx) => {
     const day = moment(selectedDate)
-      .utcOffset("+04:00")
+      .tz("Asia/Tbilisi")
       .startOf("week")
       .add(idx + 1, "day");
 
@@ -27,6 +28,7 @@ export default function Tasks({
       date: day.format("MMM DD"),
     };
   });
+
   return (
     <ul className="flex flex-col gap-y-5 px-5">
       {weekDays.map(({ date, day, value }, idx) => (
@@ -47,24 +49,22 @@ export default function Tasks({
               .map((task) => (
                 <Task key={task.createdAt.getTime()} task={task} />
               ))}
-
-            <form
-              className="flex gap-x-2"
-              hx-post="/task/add"
-              hx-vals={`{"start": "${value}"}`}
-            >
-              <input
-                type="text"
-                name="name"
-                placeholder="Title"
-                className="w-full"
-              />
-              <button type="submit">Add</button>
-              <button className="addTaskDetailsBtn" type="button" value={value}>
-                Details
-              </button>
-            </form>
           </ul>
+          <form
+            className="flex gap-x-1 border-b"
+            hx-post="/task/add"
+            hx-vals={`{"start": "${value}"}`}
+          >
+            <input
+              type="text"
+              name="name"
+              placeholder="Add New Task"
+              className="w-full rounded outline-none dark:bg-cyan-950"
+            />
+            <button type="submit" className="text-3xl">
+              <AddSVG />
+            </button>
+          </form>
         </li>
       ))}
     </ul>

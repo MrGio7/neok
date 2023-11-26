@@ -1,6 +1,6 @@
 import moment from "moment";
 import React from "react";
-import { AccountSVG } from "../assets/svg";
+import { AccountSVG, LeftArrowSVG, RightArrowSVG } from "../assets/svg";
 import DateInput from "./DateInput";
 
 interface HeaderProps {
@@ -8,38 +8,45 @@ interface HeaderProps {
   date?: string;
 }
 
-export default function Header({
-  username,
-  date = moment().utcOffset("+04:00").format("YYYY-MM-DD"),
-}: HeaderProps) {
+export default function Header({ username, date }: HeaderProps) {
   return (
     <header className="grid grid-cols-3 px-3 py-2">
-      <section className="flex gap-x-2 text-xl">
+      <section className="flex gap-x-1 text-xl">
         <button
           type="button"
           id="prevWeekBtn"
-          className="h-7 w-7 rounded-full font-bold dark:bg-cyan-50 dark:text-cyan-950"
+          hx-on:click="
+            const currentUrl = new URL(window.location.href);
+            const prevWeek = moment(currentUrl.searchParams.get('date'))
+            .subtract(1, 'week')
+            .format('YYYY-MM-DD');
+        
+            window.location.href = `/?date=${prevWeek}`;
+          "
         >
-          {"<"}
+          <LeftArrowSVG className="text-3xl" />
         </button>
-        <button
-          type="button"
-          id="nextWeekBtn"
-          className="h-7 w-7 rounded-full font-bold dark:bg-cyan-50 dark:text-cyan-950"
-        >
-          {">"}
+        <button type="button" id="nextWeekBtn">
+          <RightArrowSVG
+            className="text-3xl"
+            hx-on:click="
+              const currentUrl = new URL(window.location.href);
+              const nextWeek = moment(currentUrl.searchParams.get('date'))
+              .add(1, 'week')
+              .format('YYYY-MM-DD');
+          
+              window.location.href = `/?date=${nextWeek}`;
+            "
+          />
         </button>
       </section>
 
-      {/* <input
-        type="text"
-        id="datepicker"
-        className="cursor-pointer bg-transparent text-center focus-visible:outline-none"
-        defaultValue={moment(date).utcOffset("+04:00").format("ddd, MMM DD")}
-        readOnly
-      /> */}
-
-      <DateInput id="headerDatePicker" />
+      <DateInput
+        id="headerDatePicker"
+        dateFormat="ddd, MMM DD"
+        onChange="window.location.href = `/?date=${this.value}`"
+        defaultValue={date}
+      />
 
       <section className="group relative flex items-center gap-x-2 place-self-end">
         <span>{username}</span>

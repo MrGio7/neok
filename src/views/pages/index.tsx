@@ -1,7 +1,7 @@
-import AddTaskForm from "@components/addTaskForm";
 import Body from "@components/body";
 import Head from "@components/head";
 import Header from "@components/header";
+import TaskDetailDialog from "@components/taskDetailDialog";
 import Tasks from "@components/tasks";
 import { Task } from "@prisma/client";
 import React from "react";
@@ -24,9 +24,7 @@ export default function Index({
         <Header username={username} date={date} />
         <Tasks tasks={tasks} selectedDate={date} />
 
-        <dialog id="addTaskFormDialog">
-          <AddTaskForm />
-        </dialog>
+        <TaskDetailDialog />
       </Body>
     </html>
   );

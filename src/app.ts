@@ -1,13 +1,11 @@
 import "dotenv/config";
+import "express-async-errors";
 
 import bodyParser from "body-parser";
-import env from "@env";
-import express from "express";
 import cookieParser from "cookie-parser";
+import express, { ErrorRequestHandler } from "express";
 
 import router from "./routes";
-
-export const app = express();
 
 declare global {
   namespace Express {
@@ -17,12 +15,21 @@ declare global {
   }
 }
 
+export const app = express();
+
+const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("internal server error");
+};
+
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(router);
 
-app.listen(env.PORT, () =>
-  console.log(`Server running on port ${process.env.PORT}`),
-);
+app.use(errorHandler);
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server is listening on port ${process.env.PORT}`);
+});

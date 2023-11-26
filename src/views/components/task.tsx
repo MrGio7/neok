@@ -1,8 +1,8 @@
 import { Task } from "@prisma/client";
 import moment from "moment";
 import React from "react";
-import { DoneSVG, InfoSVG, TrashSVG, UnDoneSVG } from "../assets/svg";
 import { twMerge } from "tailwind-merge";
+import { DoneSVG, UnDoneSVG } from "../assets/svg";
 
 interface TaskProps {
   task: Task;
@@ -17,32 +17,31 @@ export default function Task({ task }: TaskProps): JSX.Element {
         task.done && "line-through",
       )}
     >
-      <span className="w-10 text-center">
-        {!!task.startTime ? moment(task.startTime).format("HH:mm") : "--:--"}
+      <span
+        className="w-10 shrink-0 text-center"
+        hx-get="/task/info"
+        hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
+      >
+        {!!task.startTime
+          ? moment(task.startTime).tz("Asia/Tbilisi").format("HH:mm")
+          : "--:--"}
       </span>
-      <span className="mr-auto">{task.name}</span>
-      <button type="button" className="text-xl">
-        <InfoSVG />
-      </button>
+      <span
+        className="w-full overflow-hidden text-ellipsis"
+        hx-get="/task/info"
+        hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
+      >
+        {task.name}
+      </span>
       <button
         type="button"
-        className="text-xl"
+        className="text-2xl"
         hx-put="/task/toggle"
         hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
         hx-target={`#task-${task.createdAt.getTime()}`}
         hx-swap="outerHTML"
       >
         {task.done ? <UnDoneSVG /> : <DoneSVG />}
-      </button>
-      <button
-        type="button"
-        className="text-xl"
-        hx-delete="/task/remove"
-        hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
-        hx-target={`#task-${task.createdAt.getTime()}`}
-        hx-swap="outerHTML"
-      >
-        <TrashSVG />
       </button>
     </li>
   );

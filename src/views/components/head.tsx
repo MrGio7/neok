@@ -12,12 +12,13 @@ export default function Head({ children }: HeadProps) {
       <title>HTMX Demo</title>
 
       <script
-        src="https://unpkg.com/htmx.org@1.9.7"
-        integrity="sha384-EAzY246d6BpbWR7sQ8+WEm40J8c3dHFsqC58IgPlh4kMbRRI6P6WA+LA/qGAyAu8"
+        src="https://unpkg.com/htmx.org@1.9.9"
+        integrity="sha384-QFjmbokDn2DjBjq+fM+8LUIVrAgqcNW2s0PjAxHETgRn9l4fvX31ZxDxvwQnyMOX"
         crossOrigin="anonymous"
       />
       <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js" />
       <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js" />
+      <script src="https://momentjs.com/downloads/moment.js" />
 
       <link
         rel="stylesheet"
