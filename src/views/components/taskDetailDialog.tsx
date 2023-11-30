@@ -2,12 +2,17 @@ import { Task } from "@prisma/client";
 import React from "react";
 import DateInput from "./DateInput";
 import Input from "./input";
+import { User } from "src/app";
 
 interface TaskDetailDialogProps {
   task?: Task;
+  user: User;
 }
 
-export default function TaskDetailDialog({ task }: TaskDetailDialogProps) {
+export default function TaskDetailDialog({
+  task,
+  user,
+}: TaskDetailDialogProps) {
   if (!task) return <dialog id="taskDetailDialog" />;
 
   return (
@@ -38,18 +43,14 @@ export default function TaskDetailDialog({ task }: TaskDetailDialogProps) {
         <DateInput
           type="datetime-local"
           name="start"
-          defaultValue={
-            task.startDate?.toISOString().split("T")[0] +
-            "T" +
-            task.startTime?.toISOString().split("T")[1]
-          }
-          dateFormat="YYYY-MM-DDTHH:mm"
+          defaultValue={task.start || undefined}
+          format={{ timeZone: user.timezone }}
         />
         <DateInput
           type="datetime-local"
           name="end"
-          defaultValue={task.endDate?.toISOString()}
-          dateFormat="YYYY-MM-DDTHH:mm"
+          defaultValue={task.end || undefined}
+          format={{ timeZone: user.timezone }}
         />
         <button
           type="submit"

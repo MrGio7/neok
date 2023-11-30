@@ -38,11 +38,10 @@ model Task {
   updatedAt DateTime @updatedAt
 
   name        String
+  date        DateTime  @db.Date
   description String?
-  startDate   DateTime? @db.Date
-  startTime   DateTime? @db.Time()
-  endDate     DateTime? @db.Date
-  endTime     DateTime? @db.Time()
+  start       DateTime?
+  end         DateTime?
   done        Boolean   @default(false)
 
   Creator       User                @relation(fields: [creator], references: [username])

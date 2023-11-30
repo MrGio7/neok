@@ -3,28 +3,31 @@ import Head from "@components/head";
 import Header from "@components/header";
 import TaskDetailDialog from "@components/taskDetailDialog";
 import Tasks from "@components/tasks";
+import TimezoneList from "@components/timezoneList";
 import { Task } from "@prisma/client";
 import React from "react";
+import { User } from "src/app";
 
 interface IndexProps {
   tasks: Task[];
-  username: string;
-  date: string;
+  user: User;
+  selectedDate: Date;
 }
 
 export default function Index({
   tasks,
-  username,
-  date,
+  user,
+  selectedDate,
 }: IndexProps): JSX.Element {
   return (
     <html lang="en">
       <Head />
       <Body>
-        <Header username={username} date={date} />
-        <Tasks tasks={tasks} selectedDate={date} />
+        <Header user={user} selectedDate={selectedDate} />
+        <TimezoneList />
+        <Tasks tasks={tasks} user={user} selectedDate={selectedDate} />
 
-        <TaskDetailDialog />
+        <TaskDetailDialog user={user} />
       </Body>
     </html>
   );

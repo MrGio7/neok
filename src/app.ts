@@ -7,10 +7,15 @@ import express, { ErrorRequestHandler } from "express";
 
 import router from "./routes";
 
+export type User = {
+  username: string;
+  timezone: string;
+};
+
 declare global {
   namespace Express {
     interface Request {
-      context: { user: { username: string } };
+      context: { user: User };
     }
   }
 }

@@ -1,11 +1,12 @@
 import { Task } from "@prisma/client";
-import moment from "moment";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import { DoneSVG, UnDoneSVG } from "../assets/svg";
+import { User } from "src/app";
 
 interface TaskProps {
   task: Task;
+  user: User;
 }
 
 export default function Task({ task }: TaskProps): JSX.Element {
@@ -22,8 +23,12 @@ export default function Task({ task }: TaskProps): JSX.Element {
         hx-get="/task/info"
         hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
       >
-        {!!task.startTime
-          ? moment(task.startTime).tz("Asia/Tbilisi").format("HH:mm")
+        {!!task.start
+          ? task.start.toLocaleTimeString("en", {
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: false,
+            })
           : "--:--"}
       </span>
       <span

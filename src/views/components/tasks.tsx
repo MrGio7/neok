@@ -1,59 +1,66 @@
 import { Task as TTask } from "@prisma/client";
 import React from "react";
-import Task from "./task";
-import moment from "moment";
-import { twMerge } from "tailwind-merge";
+import { User } from "src/app";
 import { AddSVG } from "../assets/svg";
+import Task from "./task";
 
 interface TasksProps {
   tasks?: TTask[];
-  selectedDate?: string;
+  selectedDate?: Date;
+  user: User;
 }
-
-const today = moment().tz("Asia/Tbilisi").format("YYYY-MM-DD");
 
 export default function Tasks({
   tasks = [],
-  selectedDate = today,
+  selectedDate,
+  user,
 }: TasksProps): JSX.Element {
   const weekDays = Array.from({ length: 7 }, (_, idx) => {
-    const day = moment(selectedDate)
-      .tz("Asia/Tbilisi")
-      .startOf("week")
-      .add(idx + 1, "day");
+    const dayOfWeek = new Date().getDay();
+    const date = new Date();
+    date.setDate(date.getDate() - dayOfWeek + idx);
 
-    return {
-      value: day.format("Y-M-D"),
-      day: day.format("ddd"),
-      date: day.format("MMM DD"),
-    };
+    return date;
   });
 
   return (
     <ul className="flex flex-col gap-y-5 px-5">
-      {weekDays.map(({ date, day, value }, idx) => (
+      {weekDays.map((date, idx) => (
         <li key={idx} className="flex flex-col gap-y-2">
-          <section
-            className={twMerge(
-              "flex justify-between border-b-2",
-              value === today && "text-cyan-300",
-            )}
-          >
-            <span>{day}</span>
-            <span>{date}</span>
+          <section className="flex justify-between border-b-2">
+            <span>
+              {date.toLocaleDateString("en", {
+                month: "short",
+                day: "numeric",
+                timeZone: user.timezone,
+              })}
+            </span>
+            <span>
+              {date.toLocaleDateString("en", {
+                weekday: "short",
+                timeZone: user.timezone,
+              })}
+            </span>
           </section>
 
-          <ul id={`tasks_${value}`} className="flex flex-col gap-y-5">
+          <ul
+            id={`tasks_${date.toLocaleDateString("sv", {
+              timeZone: user.timezone,
+            })}`}
+            className="flex flex-col gap-y-5"
+          >
             {tasks
-              .filter((task) => task.startDate?.toISOString().startsWith(value))
+              .filter(
+                (task) => task.date.toDateString() === date.toDateString(),
+              )
               .map((task) => (
-                <Task key={task.createdAt.getTime()} task={task} />
+                <Task key={task.createdAt.getTime()} task={task} user={user} />
               ))}
           </ul>
           <form
             className="flex gap-x-1 border-b"
             hx-post="/task/add"
-            hx-vals={`{"start": "${value}"}`}
+            hx-vals={`{"start": "${date.toISOString()}"}`}
           >
             <input
               type="text"

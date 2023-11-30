@@ -18,13 +18,7 @@ export default function Head({ children }: HeadProps) {
       />
       <script src="https://unpkg.com/htmx.org/dist/ext/loading-states.js" />
       <script src="https://unpkg.com/htmx.org/dist/ext/remove-me.js" />
-      <script src="https://momentjs.com/downloads/moment.js" />
 
-      <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@eonasdan/tempus-dominus@6.7.19/dist/css/tempus-dominus.min.css"
-        crossOrigin="anonymous"
-      />
       <link rel="stylesheet" href="/css/index.css" />
       <link rel="stylesheet" href="/css/tailwind.css" />
       {children}

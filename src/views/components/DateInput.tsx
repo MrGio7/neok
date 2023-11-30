@@ -1,39 +1,45 @@
-import moment from "moment-timezone";
 import React from "react";
+import { formatDateForDateInput } from "src/utils/date";
 
 interface DateInputProps {
-  id?: string;
-  type?: "date" | "datetime-local";
-  name?: string;
-  dateFormat?: string;
+  type: "date" | "datetime-local";
+  name: string;
+  format?: Intl.DateTimeFormatOptions;
   onChange?: string;
-  defaultValue?: string;
+  defaultValue?: Date;
 }
 
 export default function DateInput({
-  id,
+  type,
   name,
-  type = "date",
-  dateFormat = "YYYY-MM-DD HH:mm",
+  format,
   onChange,
   defaultValue,
 }: DateInputProps) {
   return (
-    <label id={id} className="datepicker">
-      <span>{moment(defaultValue).tz("Asia/Tbilisi").format(dateFormat)}</span>
+    <label className="datepicker flex items-center justify-center">
+      <span className="rounded bg-cyan-50 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50">
+        {defaultValue &&
+          Intl.DateTimeFormat("en-US", format).format(defaultValue)}
+      </span>
       <input
         type={type}
         name={name}
-        className="cursor-pointer bg-transparent text-center focus-visible:outline-none"
-        defaultValue={moment(defaultValue)
-          .tz("Asia/Tbilisi")
-          .format(type === "date" ? "YYYY-MM-DD" : "YYYY-MM-DDTHH:mm")}
+        className={"rounded px-2 py-1"}
+        defaultValue={
+          defaultValue &&
+          formatDateForDateInput({
+            date: defaultValue,
+            timeZone: format?.timeZone,
+            withTime: type === "datetime-local",
+          })
+        }
         hx-on:change={
           `
             const label = htmx.closest(this, 'label');
             const span = htmx.find(label, 'span');
 
-            span.textContent = moment(this.value).format('${dateFormat}');
+            span.textContent = Intl.DateTimeFormat("en-US", ${format}).format(this.value);
           ` + onChange || ""
         }
       />

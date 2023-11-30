@@ -1,14 +1,14 @@
-import moment from "moment";
 import React from "react";
+import { User } from "src/app";
 import { AccountSVG, LeftArrowSVG, RightArrowSVG } from "../assets/svg";
 import DateInput from "./DateInput";
 
 interface HeaderProps {
-  username: string;
-  date?: string;
+  user: User;
+  selectedDate?: Date;
 }
 
-export default function Header({ username, date }: HeaderProps) {
+export default function Header({ user, selectedDate }: HeaderProps) {
   return (
     <header className="grid grid-cols-3 px-3 py-2">
       <section className="flex gap-x-1 text-xl">
@@ -17,9 +17,9 @@ export default function Header({ username, date }: HeaderProps) {
           id="prevWeekBtn"
           hx-on:click="
             const currentUrl = new URL(window.location.href);
-            const prevWeek = moment(currentUrl.searchParams.get('date'))
-            .subtract(1, 'week')
-            .format('YYYY-MM-DD');
+            const prevWeekDate = new Date(currentUrl.searchParams.get('date'));
+            prevWeekDate.setDate(prevWeekDate.getDate() - 7);
+            const prevWeek = prevWeekDate.toLocaleDateString('sv')
         
             window.location.href = `/?date=${prevWeek}`;
           "
@@ -31,9 +31,9 @@ export default function Header({ username, date }: HeaderProps) {
             className="text-3xl"
             hx-on:click="
               const currentUrl = new URL(window.location.href);
-              const nextWeek = moment(currentUrl.searchParams.get('date'))
-              .add(1, 'week')
-              .format('YYYY-MM-DD');
+              const nextWeekDate = new Date(currentUrl.searchParams.get('date'));
+              nextWeekDate.setDate(nextWeekDate.getDate() - 7);
+              const nextWeek = nextWeekDate.toLocaleDateString('sv')
           
               window.location.href = `/?date=${nextWeek}`;
             "
@@ -42,14 +42,20 @@ export default function Header({ username, date }: HeaderProps) {
       </section>
 
       <DateInput
-        id="headerDatePicker"
-        dateFormat="ddd, MMM DD"
+        name="headerDateInput"
+        type="date"
+        format={{
+          weekday: "short",
+          month: "short",
+          day: "numeric",
+          timeZone: user.timezone,
+        }}
         onChange="window.location.href = `/?date=${this.value}`"
-        defaultValue={date}
+        defaultValue={selectedDate}
       />
 
       <section className="group relative flex items-center gap-x-2 place-self-end">
-        <span>{username}</span>
+        <span>{user.username}</span>
 
         <AccountSVG className="text-3xl" />
 
