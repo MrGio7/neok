@@ -19,8 +19,7 @@ export default function DateInput({
   return (
     <label className="datepicker flex items-center justify-center">
       <span className="rounded bg-cyan-50 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50">
-        {defaultValue &&
-          Intl.DateTimeFormat("en-US", format).format(defaultValue)}
+        {defaultValue && defaultValue.toLocaleString("en-US", format)}
       </span>
       <input
         type={type}
@@ -39,7 +38,9 @@ export default function DateInput({
             const label = htmx.closest(this, 'label');
             const span = htmx.find(label, 'span');
 
-            span.textContent = Intl.DateTimeFormat("en-US", ${format}).format(this.value);
+            span.textContent = new Date(this.value).toLocaleString("en-US", ${JSON.stringify(
+              format,
+            )});
           ` + onChange || ""
         }
       />

@@ -22,7 +22,5 @@ export function formatDateForDateInput({
     dateTimeFormatOptions.hour12 = false;
   }
 
-  return Intl.DateTimeFormat("sv-SE", dateTimeFormatOptions)
-    .format(date)
-    .replace(" ", "T");
+  return date.toLocaleString("sv-SE", dateTimeFormatOptions).replace(" ", "T");
 }
