@@ -6,7 +6,7 @@ import Task from "./task";
 
 interface TasksProps {
   tasks?: TTask[];
-  selectedDate?: Date;
+  selectedDate: Date;
   user: User;
 }
 
@@ -16,8 +16,8 @@ export default function Tasks({
   user,
 }: TasksProps): JSX.Element {
   const weekDays = Array.from({ length: 7 }, (_, idx) => {
-    const dayOfWeek = new Date().getDay();
-    const date = new Date();
+    const dayOfWeek = new Date(selectedDate).getDay();
+    const date = new Date(selectedDate);
     date.setDate(date.getDate() - dayOfWeek + idx);
 
     return date;

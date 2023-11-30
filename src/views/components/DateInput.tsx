@@ -17,8 +17,8 @@ export default function DateInput({
   defaultValue,
 }: DateInputProps) {
   return (
-    <label className="datepicker flex items-center justify-center">
-      <span className="rounded bg-cyan-50 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50">
+    <label className="datepicker flex">
+      <span className="w-full rounded bg-cyan-50 px-2 py-1 text-left text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50">
         {defaultValue && defaultValue.toLocaleString("en-US", format)}
       </span>
       <input
@@ -33,15 +33,15 @@ export default function DateInput({
             withTime: type === "datetime-local",
           })
         }
-        hx-on:change={
-          `
+        hx-on={
+          `change:
             const label = htmx.closest(this, 'label');
             const span = htmx.find(label, 'span');
 
             span.textContent = new Date(this.value).toLocaleString("en-US", ${JSON.stringify(
               format,
             )});
-          ` + onChange || ""
+          ` + (onChange || "")
         }
       />
     </label>

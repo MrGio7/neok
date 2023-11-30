@@ -32,7 +32,7 @@ export default function Header({ user, selectedDate }: HeaderProps) {
             hx-on:click="
               const currentUrl = new URL(window.location.href);
               const nextWeekDate = new Date(currentUrl.searchParams.get('date'));
-              nextWeekDate.setDate(nextWeekDate.getDate() - 7);
+              nextWeekDate.setDate(nextWeekDate.getDate() + 7);
               const nextWeek = nextWeekDate.toLocaleDateString('sv')
           
               window.location.href = `/?date=${nextWeek}`;
