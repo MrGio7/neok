@@ -28,8 +28,8 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
 };
 
 app.use(express.static("public"));
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(router);
 

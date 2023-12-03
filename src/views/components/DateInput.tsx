@@ -1,30 +1,47 @@
 import React from "react";
 import { formatDateForDateInput } from "src/utils/date";
+import { twMerge } from "tailwind-merge";
 
 interface DateInputProps {
   type: "date" | "datetime-local";
   name: string;
+  label?: string;
   format?: Intl.DateTimeFormatOptions;
   onChange?: string;
   defaultValue?: Date;
+  className?: string;
+  labelClassName?: string;
+  inputClassName?: string;
 }
 
 export default function DateInput({
   type,
   name,
+  label,
   format,
   onChange,
   defaultValue,
+  className,
+  labelClassName,
+  inputClassName,
 }: DateInputProps) {
   return (
-    <label className="datepicker flex">
-      <span className="w-full rounded bg-cyan-50 px-2 py-1 text-left text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50">
+    <label className={twMerge("datepicker flex flex-col", className)}>
+      {!!label && (
+        <p className={twMerge("text-left", labelClassName)}>{label}</p>
+      )}
+      <span
+        className={twMerge(
+          "h-[32px] w-full rounded bg-cyan-50 px-2 py-1 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50",
+          inputClassName,
+        )}
+      >
         {defaultValue && defaultValue.toLocaleString("en-US", format)}
       </span>
       <input
         type={type}
         name={name}
-        className={"rounded px-2 py-1"}
+        className={twMerge("h-full w-full", inputClassName)}
         defaultValue={
           defaultValue &&
           formatDateForDateInput({

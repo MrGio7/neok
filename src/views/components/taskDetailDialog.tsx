@@ -22,15 +22,18 @@ export default function TaskDetailDialog({
       open
     >
       <form
-        className="flex flex-col gap-y-3"
+        className="flex flex-col gap-y-1"
         hx-put="/task/update"
         hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
         hx-on="htmx:configRequest:
           const start = this.querySelector('input[name=start]').value;
           const end = this.querySelector('input[name=end]').value;
-          
-          event.detail.parameters.start = new Date(start).toISOString();
-          event.detail.parameters.end = new Date(end).toISOString();
+
+          !start && delete event.detail.parameters.start;
+          !end && delete event.detail.parameters.end;
+
+          !!start && (event.detail.parameters.start = new Date(start).toISOString());
+          !!end && (event.detail.parameters.end = new Date(end).toISOString());
         "
       >
         <Input type="text" name="name" label="Name" defaultValue={task.name} />
@@ -42,15 +45,27 @@ export default function TaskDetailDialog({
         />
         <DateInput
           type="datetime-local"
+          label="Start"
           name="start"
           defaultValue={task.start || undefined}
-          format={{ timeZone: user.timezone }}
+          format={{
+            dateStyle: "medium",
+            timeStyle: "short",
+            hour12: false,
+            timeZone: user.timezone,
+          }}
         />
         <DateInput
           type="datetime-local"
+          label="End"
           name="end"
           defaultValue={task.end || undefined}
-          format={{ timeZone: user.timezone }}
+          format={{
+            dateStyle: "medium",
+            timeStyle: "short",
+            hour12: false,
+            timeZone: user.timezone,
+          }}
         />
         <button
           type="submit"

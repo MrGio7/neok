@@ -1,6 +1,7 @@
 import Body from "@components/body";
 import Head from "@components/head";
 import Header from "@components/header";
+import SearchFriendInput from "@components/searchFriendInput";
 import TaskDetailDialog from "@components/taskDetailDialog";
 import Tasks from "@components/tasks";
 import TimezoneList from "@components/timezoneList";
@@ -24,7 +25,7 @@ export default function Index({
       <Head />
       <Body>
         <Header user={user} selectedDate={selectedDate} />
-        <TimezoneList />
+
         <Tasks tasks={tasks} user={user} selectedDate={selectedDate} />
 
         <TaskDetailDialog user={user} />

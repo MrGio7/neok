@@ -38,7 +38,7 @@ model Task {
   updatedAt DateTime @updatedAt
 
   name        String
-  date        DateTime  @db.Date
+  date        DateTime
   description String?
   start       DateTime?
   end         DateTime?
