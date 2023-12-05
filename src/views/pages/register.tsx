@@ -9,7 +9,7 @@ export default function Register({}: RegisterProps) {
   return (
     <html lang="en">
       <Head />
-      <Body>
+      <Body className="flex h-full flex-col justify-center px-5">
         <RegisterForm />
       </Body>
     </html>

@@ -1,17 +1,24 @@
 import React from "react";
 import Errors from "./errors";
+import SearchFriend from "./searchFriend";
+import { twMerge } from "tailwind-merge";
 
-interface BodyProps {
-  children: React.ReactNode;
-}
-
-export default function Body({ children }: BodyProps) {
+export default function Body({
+  children,
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLBodyElement>) {
   return (
     <body
-      className="bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50"
+      className={twMerge(
+        "bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50",
+        className,
+      )}
       hx-ext="loading-states, remove-me"
+      {...props}
     >
       {children}
+
       <Errors />
 
       <script src="/js/index.js" />

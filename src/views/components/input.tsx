@@ -18,7 +18,14 @@ export default function Input({
       {...containerProps}
       className={twMerge("flex flex-col", containerProps?.className)}
     >
-      {label && <span {...labelProps}>{label}</span>}
+      {label && (
+        <span
+          {...labelProps}
+          className={twMerge("dark:text-neutral-950", labelProps?.className)}
+        >
+          {label}
+        </span>
+      )}
 
       <input
         {...inputProps}

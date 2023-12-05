@@ -9,7 +9,7 @@ export default function Login({}: LoginProps) {
   return (
     <html lang="en">
       <Head />
-      <Body>
+      <Body className="flex h-full flex-col justify-center px-5">
         <LoginForm />
       </Body>
     </html>

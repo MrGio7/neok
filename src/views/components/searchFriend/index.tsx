@@ -1,12 +1,15 @@
 import React from "react";
-import Input from "./input";
+import Input from "../input";
 import SearchFriendResults from "./searchFriendResults";
+import SearchFriendSelected from "./searchFrindSelected";
 
 interface SearchFriendInputProps {}
 
-export default function SearchFriendInput({}: SearchFriendInputProps) {
+export default function SearchFriend({}: SearchFriendInputProps) {
   return (
-    <label className="relative">
+    <div className="relative">
+      <SearchFriendSelected />
+
       <Input
         type="search"
         name="search-friend"
@@ -14,7 +17,8 @@ export default function SearchFriendInput({}: SearchFriendInputProps) {
         hx-trigger="input changed delay:300ms, search-friend"
         hx-target="#search-friend-results"
       />
+
       <SearchFriendResults />
-    </label>
+    </div>
   );
 }
