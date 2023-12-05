@@ -51,6 +51,7 @@ export default function Header({ user, selectedDate }: HeaderProps) {
           timeZone: user.timezone,
         }}
         onChange="window.location.href = `/?date=${this.value}`"
+        inputClassName="text-center"
         defaultValue={selectedDate}
       />
 

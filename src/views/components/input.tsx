@@ -3,18 +3,29 @@ import { twMerge } from "tailwind-merge";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  labelProps?: React.HTMLAttributes<HTMLSpanElement>;
+  containerProps?: React.LabelHTMLAttributes<HTMLLabelElement>;
 }
 
-export default function Input({ label, className, ...props }: InputProps) {
+export default function Input({
+  label,
+  containerProps,
+  labelProps,
+  ...inputProps
+}: InputProps) {
   return (
-    <label className="flex flex-col">
-      {label && <span>{label}</span>}
+    <label
+      {...containerProps}
+      className={twMerge("flex flex-col", containerProps?.className)}
+    >
+      {label && <span {...labelProps}>{label}</span>}
+
       <input
+        {...inputProps}
         className={twMerge(
-          "rounded bg-cyan-50 px-2 py-1 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50",
-          className,
+          "rounded bg-neutral-100 px-2 py-1 text-neutral-950 outline-none dark:bg-neutral-900 dark:text-neutral-50",
+          inputProps?.className,
         )}
-        {...props}
       />
     </label>
   );

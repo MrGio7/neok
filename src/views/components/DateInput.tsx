@@ -32,7 +32,7 @@ export default function DateInput({
       )}
       <span
         className={twMerge(
-          "h-[32px] w-full rounded bg-cyan-50 px-2 py-1 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50",
+          "h-[32px] w-full rounded bg-neutral-100 px-2 py-1 text-left text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50",
           inputClassName,
         )}
       >
@@ -41,7 +41,7 @@ export default function DateInput({
       <input
         type={type}
         name={name}
-        className={twMerge("h-full w-full", inputClassName)}
+        className="h-full w-full"
         defaultValue={
           defaultValue &&
           formatDateForDateInput({

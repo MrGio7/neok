@@ -26,9 +26,11 @@ export default function Index({
       <Body>
         <Header user={user} selectedDate={selectedDate} />
 
-        <Tasks tasks={tasks} user={user} selectedDate={selectedDate} />
+        <main>
+          <Tasks tasks={tasks} user={user} selectedDate={selectedDate} />
 
-        <TaskDetailDialog user={user} />
+          <TaskDetailDialog user={user} />
+        </main>
       </Body>
     </html>
   );

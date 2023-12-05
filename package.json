@@ -14,11 +14,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "prettier": {
-    "plugins": [
-      "prettier-plugin-tailwindcss"
-    ]
-  },
   "nodemonConfig": {
     "watch": [
       "src/**/*.ts",

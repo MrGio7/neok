@@ -19,7 +19,7 @@ export default function Task({ task }: TaskProps): JSX.Element {
       )}
     >
       <span
-        className="w-10 shrink-0 text-center"
+        className="w-10 shrink-0 cursor-pointer text-center"
         hx-get="/task/info"
         hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
       >
@@ -31,13 +31,15 @@ export default function Task({ task }: TaskProps): JSX.Element {
             })
           : "--:--"}
       </span>
+
       <span
-        className="w-full overflow-hidden text-ellipsis"
+        className="w-full cursor-pointer overflow-hidden text-ellipsis"
         hx-get="/task/info"
         hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
       >
         {task.name}
       </span>
+
       <button
         type="button"
         className="text-2xl"

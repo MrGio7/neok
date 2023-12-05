@@ -4,6 +4,7 @@ import { User } from "src/app";
 import { AddSVG } from "../assets/svg";
 import Task from "./task";
 import moment from "moment-timezone";
+import Input from "./input";
 
 interface TasksProps {
   tasks?: TTask[];
@@ -63,11 +64,11 @@ export default function Tasks({
             hx-post="/task/add"
             hx-vals={`{"start": "${date.toISOString()}"}`}
           >
-            <input
+            <Input
               type="text"
               name="name"
               placeholder="Add New Task"
-              className="w-full rounded outline-none dark:bg-cyan-950"
+              containerProps={{ className: "w-full" }}
             />
             <button type="submit" className="text-3xl">
               <AddSVG />

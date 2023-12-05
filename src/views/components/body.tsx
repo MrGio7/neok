@@ -8,7 +8,7 @@ interface BodyProps {
 export default function Body({ children }: BodyProps) {
   return (
     <body
-      className="bg-cyan-50 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50"
+      className="bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50"
       hx-ext="loading-states, remove-me"
     >
       {children}

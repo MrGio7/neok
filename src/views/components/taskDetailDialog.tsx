@@ -18,7 +18,7 @@ export default function TaskDetailDialog({
   return (
     <dialog
       id="taskDetailDialog"
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded p-5 dark:bg-cyan-50"
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded bg-neutral-100 p-5 shadow shadow-neutral-950 dark:bg-neutral-100"
       open
     >
       <form
@@ -36,17 +36,24 @@ export default function TaskDetailDialog({
           !!end && (event.detail.parameters.end = new Date(end).toISOString());
         "
       >
-        <Input type="text" name="name" label="Name" defaultValue={task.name} />
         <Input
           type="text"
-          label="Description"
+          name="name"
+          label="Name"
+          placeholder="Enter name"
+          defaultValue={task.name}
+        />
+        <Input
+          type="text"
           name="description"
+          label="Description"
+          placeholder="Enter description"
           defaultValue={task.description || ""}
         />
         <DateInput
           type="datetime-local"
-          label="Start"
           name="start"
+          label="Start"
           defaultValue={task.start || undefined}
           format={{
             dateStyle: "medium",
@@ -69,7 +76,7 @@ export default function TaskDetailDialog({
         />
         <button
           type="submit"
-          className="mt-2 rounded bg-cyan-50 px-2 py-1 text-cyan-950 dark:bg-cyan-950 dark:text-cyan-50"
+          className="mt-2 rounded bg-neutral-100 px-2 py-1 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50"
           data-loading-class="bg-red-100 hover:bg-red-200"
           data-loading-class-remove="bg-teal-100 hover:bg-teal-200"
           data-loading-disable
