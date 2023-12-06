@@ -60,7 +60,8 @@ export default function Header({ user, selectedDate }: HeaderProps) {
 
         <AccountSVG className="text-3xl" />
 
-        <article className="absolute right-0 top-full hidden group-hover:block">
+        <article className="absolute right-0 top-full hidden flex-col items-end gap-y-1 rounded bg-neutral-100 px-3 py-2 shadow group-hover:flex dark:bg-neutral-100 dark:text-neutral-950 dark:shadow-none">
+          <a href="/account/settings">Settings</a>
           <button type="button" hx-get="/auth/logout" hx-swap="none">
             Logout
           </button>

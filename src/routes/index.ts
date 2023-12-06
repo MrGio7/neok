@@ -6,6 +6,8 @@ import authMiddleware from "@middlewares/auth";
 import { render } from "@libs/react";
 import Index from "@pages/index";
 import moment from "moment-timezone";
+import { z } from "zod";
+import SearchFriendSuggestions from "@components/searchFriend/searchFriendSuggestions";
 
 const router = express.Router();
 
@@ -40,7 +42,7 @@ router.get("/", authMiddleware, async (req, res) => {
     where: {
       OR: [
         { creator: user.username },
-        { AttachedUsers: { some: { userUsername: user.username } } },
+        { AttachedUsers: { some: { username: user.username } } },
       ],
       date: { gte: weekStart, lte: weekEnd },
     },
@@ -48,6 +50,38 @@ router.get("/", authMiddleware, async (req, res) => {
   });
 
   render(res, Index({ tasks, user, selectedDate }));
+});
+
+router.post("/search-friend", authMiddleware, async (req, res) => {
+  const { friend } = z
+    .object({
+      friend: z.string(),
+    })
+    .parse(req.body);
+
+  const username = req.context.user.username;
+  const friendList = friend.split(",").map((friend) => friend.trim());
+
+  const search = friendList.at(-1);
+
+  if (!search) {
+    return render(res, SearchFriendSuggestions({ results: [] }));
+  }
+
+  const userList = await prisma.user.findMany({
+    where: {
+      username: {
+        notIn: [username, ...friendList],
+        contains: search,
+        mode: "insensitive",
+      },
+    },
+  });
+
+  render(
+    res,
+    SearchFriendSuggestions({ results: userList.map((user) => user.username) }),
+  );
 });
 
 export default router;

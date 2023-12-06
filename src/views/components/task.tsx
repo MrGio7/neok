@@ -12,7 +12,7 @@ interface TaskProps {
 export default function Task({ task }: TaskProps): JSX.Element {
   return (
     <li
-      id={`task-${task.createdAt.getTime()}`}
+      id={`task-${task.id}`}
       className={twMerge(
         "flex items-center gap-x-2 border-b",
         task.done && "line-through",
@@ -21,7 +21,7 @@ export default function Task({ task }: TaskProps): JSX.Element {
       <span
         className="w-10 shrink-0 cursor-pointer text-center"
         hx-get="/task/info"
-        hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
+        hx-vals={`{"id": ${task.id}}`}
       >
         {!!task.start
           ? task.start.toLocaleTimeString("en", {
@@ -35,7 +35,7 @@ export default function Task({ task }: TaskProps): JSX.Element {
       <span
         className="w-full cursor-pointer overflow-hidden text-ellipsis"
         hx-get="/task/info"
-        hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
+        hx-vals={`{"id": ${task.id}}`}
       >
         {task.name}
       </span>

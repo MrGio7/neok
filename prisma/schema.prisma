@@ -16,24 +16,12 @@ model User {
   firstName String?
   lastName  String?
 
-  Tasks         Task[]
-  AttachedTasks UserAttachedTasks[]
-}
-
-model UserAttachedTasks {
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  Task          Task     @relation(fields: [taskCreator, taskCreatedAt], references: [creator, createdAt])
-  taskCreator   String
-  taskCreatedAt DateTime
-  User          User     @relation(fields: [userUsername], references: [username])
-  userUsername  String
-
-  @@id([taskCreator, taskCreatedAt, userUsername])
+  Tasks         Task[] @relation("UserTasks")
+  AttachedTasks Task[] @relation("UserAttachedTasks")
 }
 
 model Task {
+  id        BigInt   @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -44,9 +32,7 @@ model Task {
   end         DateTime?
   done        Boolean   @default(false)
 
-  Creator       User                @relation(fields: [creator], references: [username])
+  Creator       User   @relation("UserTasks", fields: [creator], references: [username])
   creator       String
-  AttachedUsers UserAttachedTasks[]
-
-  @@id([creator, createdAt])
+  AttachedUsers User[] @relation("UserAttachedTasks")
 }

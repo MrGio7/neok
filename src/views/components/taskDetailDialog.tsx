@@ -1,11 +1,12 @@
-import { Task } from "@prisma/client";
+import { Task, User as TUser } from "@prisma/client";
 import React from "react";
 import DateInput from "./DateInput";
 import Input from "./input";
 import { User } from "src/app";
+import SearchFriend from "./searchFriend";
 
 interface TaskDetailDialogProps {
-  task?: Task;
+  task?: Task & { AttachedUsers: TUser[] };
   user: User;
 }
 
@@ -24,7 +25,7 @@ export default function TaskDetailDialog({
       <form
         className="flex flex-col gap-y-1"
         hx-put="/task/update"
-        hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
+        hx-vals={`{"id": ${task.id}}`}
         hx-on="htmx:configRequest:
           const start = this.querySelector('input[name=start]').value;
           const end = this.querySelector('input[name=end]').value;
@@ -36,18 +37,11 @@ export default function TaskDetailDialog({
           !!end && (event.detail.parameters.end = new Date(end).toISOString());
         "
       >
-        <Input
-          type="text"
-          name="name"
-          label="Name"
-          placeholder="Enter name"
-          defaultValue={task.name}
-        />
+        <Input type="text" name="name" label="Name" defaultValue={task.name} />
         <Input
           type="text"
           name="description"
           label="Description"
-          placeholder="Enter description"
           defaultValue={task.description || ""}
         />
         <DateInput
@@ -74,6 +68,13 @@ export default function TaskDetailDialog({
             timeZone: user.timezone,
           }}
         />
+
+        <SearchFriend
+          friends={task.AttachedUsers?.map(({ username }) => username).join(
+            ", ",
+          )}
+        />
+
         <button
           type="submit"
           className="mt-2 rounded bg-neutral-100 px-2 py-1 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50"

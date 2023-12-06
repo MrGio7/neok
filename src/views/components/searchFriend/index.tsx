@@ -1,24 +1,25 @@
 import React from "react";
 import Input from "../input";
-import SearchFriendResults from "./searchFriendResults";
-import SearchFriendSelected from "./searchFrindSelected";
+import SearchFriendSuggestions from "./searchFriendSuggestions";
+interface SearchFriendInputProps {
+  friends?: string;
+}
 
-interface SearchFriendInputProps {}
-
-export default function SearchFriend({}: SearchFriendInputProps) {
+export default function SearchFriend({ friends = "" }: SearchFriendInputProps) {
   return (
     <div className="relative">
-      <SearchFriendSelected />
-
       <Input
         type="search"
-        name="search-friend"
+        name="friend"
+        label="Friends"
+        defaultValue={friends}
         hx-post="/search-friend"
-        hx-trigger="input changed delay:300ms, search-friend"
-        hx-target="#search-friend-results"
+        hx-trigger="input changed delay:300ms, friend"
+        hx-target="#search-friend-suggestions"
+        hx-swap="outerHTML"
       />
 
-      <SearchFriendResults />
+      <SearchFriendSuggestions />
     </div>
   );
 }
