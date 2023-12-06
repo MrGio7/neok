@@ -1,7 +1,6 @@
 import React from "react";
-import Errors from "./errors";
-import SearchFriend from "./searchFriend";
 import { twMerge } from "tailwind-merge";
+import Messages from "./messages";
 
 export default function Body({
   children,
@@ -19,7 +18,7 @@ export default function Body({
     >
       {children}
 
-      <Errors />
+      <Messages />
 
       <script src="/js/index.js" />
     </body>

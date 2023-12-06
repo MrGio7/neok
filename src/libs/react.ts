@@ -1,4 +1,4 @@
-import Error from "@components/error";
+import Error from "@components/message";
 import { Response } from "express";
 import { renderToStaticMarkup } from "react-dom/server";
 

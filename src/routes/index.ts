@@ -8,11 +8,13 @@ import Index from "@pages/index";
 import moment from "moment-timezone";
 import { z } from "zod";
 import SearchFriendSuggestions from "@components/searchFriend/searchFriendSuggestions";
+import accountRouter from "./account";
 
 const router = express.Router();
 
 router.use("/auth", authRouter);
 router.use("/task", authMiddleware, taskRouter);
+router.use("/account", authMiddleware, accountRouter);
 
 router.get("/", authMiddleware, async (req, res) => {
   const user = req.context.user;

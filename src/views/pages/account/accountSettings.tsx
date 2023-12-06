@@ -2,55 +2,48 @@ import Body from "@components/body";
 import Head from "@components/head";
 import Input from "@components/input";
 import React from "react";
+import { User } from "src/app";
 
-interface RegisterProps {}
+interface AccountSettingsProps {
+  user: User;
+}
 
-export default function Register({}: RegisterProps) {
+export default function AccountSettings({ user }: AccountSettingsProps) {
   return (
     <html lang="en">
       <Head />
       <Body className="flex h-full flex-col justify-center px-5">
         <form
-          id="register-form"
-          hx-post="/auth/register"
+          hx-post="/account/update"
           className="flex flex-col items-center justify-center gap-y-2 rounded p-5 dark:bg-white"
+          hx-swap="none"
         >
-          <img
-            src="/svg/logo.svg"
-            alt="logo"
-            className="aspect-square w-40 rounded-full"
-          />
+          <a href="/">
+            <img
+              src="/svg/logo.svg"
+              alt="logo"
+              className="aspect-square w-40 rounded-full"
+            />
+          </a>
 
           <Input
             type="text"
             name="username"
             label="Username"
-            required
-            minLength={1}
+            defaultValue={user.username}
+            readOnly
           />
 
-          <Input
-            type="password"
-            name="password"
-            label="Password"
-            required
-            minLength={1}
-          />
+          <Input type="password" name="password" label="Password" />
 
-          <Input
-            type="password"
-            name="password2"
-            label="Confirm Password"
-            required
-            minLength={1}
-          />
+          <Input type="password" name="password2" label="Confirm Password" />
 
           <Input
             type="text"
             name="timezone"
             list="timezones"
             label="Timezone"
-            defaultValue="Asia/Tbilisi"
+            defaultValue={user.timezone}
             required
             minLength={1}
           />
@@ -66,7 +59,7 @@ export default function Register({}: RegisterProps) {
             type="submit"
             className="rounded px-3 py-1 dark:bg-neutral-900"
           >
-            Register
+            Save
           </button>
         </form>
       </Body>

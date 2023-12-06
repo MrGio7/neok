@@ -1,7 +1,7 @@
 import { login, logout, register } from "@controllers/auth";
 import { render } from "@libs/react";
-import Login from "@pages/login";
-import Register from "@pages/register";
+import Login from "@pages/auth/login";
+import Register from "@pages/auth/register";
 import express from "express";
 
 const authRouter = express.Router();
