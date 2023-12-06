@@ -1,36 +1,27 @@
 import { generateAccessToken, generateRefreshToken } from "@libs/jwt";
 import { prisma } from "@libs/prisma";
-import { renderError } from "@libs/react";
-import { hashSync, compareSync } from "bcryptjs";
+import { compareSync, hashSync } from "bcryptjs";
 import { RequestHandler } from "express";
-import { string as zString, object as zObject } from "zod";
+import { object as zObject, string as zString } from "zod";
 
 export const login: RequestHandler = async (req, res) => {
-  const body = zObject({
+  const { password, username } = zObject({
     username: zString().min(1),
     password: zString().min(1),
-  }).safeParse(req.body);
-
-  if (!body.success) {
-    return renderError(res, body.error.message);
-  }
-
-  const {
-    data: { password, username },
-  } = body;
+  }).parse(req.body);
 
   const user = await prisma.user.findUnique({
     where: { username },
   });
 
   if (!user) {
-    return res.status(404).json({ message: "User not found" });
+    throw new Error("User not found");
   }
 
   const isPasswordValid = compareSync(password, user.password);
 
   if (!isPasswordValid) {
-    return renderError(res, "Invalid password");
+    throw new Error("Invalid password");
   }
 
   const accessToken = generateAccessToken({ username });
@@ -57,7 +48,7 @@ export const register: RequestHandler = async (req, res) => {
   }).parse(req.body);
 
   if (password !== password2) {
-    return res.status(400).json({ message: "Passwords do not match" });
+    throw new Error("Passwords do not match");
   }
 
   const user = await prisma.user.findUnique({
@@ -65,7 +56,7 @@ export const register: RequestHandler = async (req, res) => {
   });
 
   if (user) {
-    return res.status(409).json({ message: "User already exists" });
+    throw new Error("User already exists");
   }
 
   const hashedPassword = hashSync(password, 10);

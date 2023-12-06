@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import express, { ErrorRequestHandler } from "express";
 
 import router from "./routes";
+import { render } from "@libs/react";
+import Error from "@components/error";
 
 export type User = {
   username: string;
@@ -24,7 +26,12 @@ export const app = express();
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   console.error(err);
-  res.status(500).send("internal server error");
+
+  res
+    .setHeader("HX-Retarget", "#errors") //
+    .setHeader("HX-Reswap", "beforeend");
+
+  render(res, Error({ error: err.message }));
 };
 
 app.use(express.static("public"));

@@ -7,7 +7,7 @@ interface ErrorsProps {
 
 export default function Errors({ errors = [] }: ErrorsProps) {
   return (
-    <ul id="errors" className="absolute right-5 top-5 flex flex-col">
+    <ul id="errors" className="absolute right-5 top-5 flex flex-col gap-y-2">
       {errors.map((error, idx) => (
         <Error key={idx} error={error} />
       ))}

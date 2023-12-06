@@ -827,6 +827,11 @@ video {
     background-color: rgb(23 23 23 / var(--tw-bg-opacity));
   }
 
+  .dark\:bg-red-100 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(254 226 226 / var(--tw-bg-opacity));
+  }
+
   .dark\:bg-white {
     --tw-bg-opacity: 1;
     background-color: rgb(255 255 255 / var(--tw-bg-opacity));
@@ -840,6 +845,11 @@ video {
   .dark\:text-neutral-950 {
     --tw-text-opacity: 1;
     color: rgb(10 10 10 / var(--tw-text-opacity));
+  }
+
+  .dark\:text-red-900 {
+    --tw-text-opacity: 1;
+    color: rgb(127 29 29 / var(--tw-text-opacity));
   }
 
   .dark\:shadow-none {
