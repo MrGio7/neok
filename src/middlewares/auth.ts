@@ -9,19 +9,17 @@ const authMiddleware: RequestHandler = (req, res, next) => {
   try {
     const accessToken = req.headers.authorization?.split(" ")[1];
     const refreshToken = req.cookies.refreshToken as string | undefined;
-    const timezone =
-      (req.cookies.timezone as string | undefined) || "Asia/Tbilisi";
 
     if (!!accessToken) {
-      const { username } = verifyAccessToken(accessToken);
+      const { username, timezone } = verifyAccessToken(accessToken);
       req.context = { user: { username, timezone } };
       res.header("authorization", `Bearer ${accessToken}`);
       return next();
     }
 
     if (!!refreshToken) {
-      const { username } = verifyRefreshToken(refreshToken);
-      const accessToken = generateAccessToken({ username });
+      const { username, timezone } = verifyRefreshToken(refreshToken);
+      const accessToken = generateAccessToken({ username, timezone });
 
       req.context = { user: { username, timezone } };
       res.header("authorization", `Bearer ${accessToken}`);

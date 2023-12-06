@@ -15,6 +15,7 @@ model User {
   password  String
   firstName String?
   lastName  String?
+  timezone  String
 
   Tasks         Task[] @relation("UserTasks")
   AttachedTasks Task[] @relation("UserAttachedTasks")

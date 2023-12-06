@@ -2,13 +2,15 @@ import { generateAccessToken, generateRefreshToken } from "@libs/jwt";
 import { prisma } from "@libs/prisma";
 import { compareSync, hashSync } from "bcryptjs";
 import { RequestHandler } from "express";
-import { object as zObject, string as zString } from "zod";
+import z from "zod";
 
 export const login: RequestHandler = async (req, res) => {
-  const { password, username } = zObject({
-    username: zString().min(1),
-    password: zString().min(1),
-  }).parse(req.body);
+  const { password, username } = z
+    .object({
+      username: z.string().min(1),
+      password: z.string().min(1),
+    })
+    .parse(req.body);
 
   const user = await prisma.user.findUnique({
     where: { username },
@@ -24,9 +26,15 @@ export const login: RequestHandler = async (req, res) => {
     throw new Error("Invalid password");
   }
 
-  const accessToken = generateAccessToken({ username });
+  const accessToken = generateAccessToken({
+    username,
+    timezone: user.timezone,
+  });
 
-  const refreshToken = generateRefreshToken({ username });
+  const refreshToken = generateRefreshToken({
+    username,
+    timezone: user.timezone,
+  });
 
   return res
     .setHeader("authorization", `Bearer ${accessToken}`)
@@ -41,11 +49,14 @@ export const login: RequestHandler = async (req, res) => {
 };
 
 export const register: RequestHandler = async (req, res) => {
-  const { username, password, password2 } = zObject({
-    username: zString().min(1),
-    password: zString().min(1),
-    password2: zString().min(1),
-  }).parse(req.body);
+  const { username, password, password2, timezone } = z
+    .object({
+      username: z.string().min(1),
+      password: z.string().min(1),
+      password2: z.string().min(1),
+      timezone: z.string().min(1),
+    })
+    .parse(req.body);
 
   if (password !== password2) {
     throw new Error("Passwords do not match");
@@ -65,12 +76,13 @@ export const register: RequestHandler = async (req, res) => {
     data: {
       username,
       password: hashedPassword,
+      timezone,
     },
   });
 
-  const accessToken = generateAccessToken({ username });
+  const accessToken = generateAccessToken({ username, timezone });
 
-  const refreshToken = generateRefreshToken({ username });
+  const refreshToken = generateRefreshToken({ username, timezone });
 
   return res
     .setHeader("authorization", `Bearer ${accessToken}`)

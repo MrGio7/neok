@@ -1,7 +1,7 @@
 import env from "@env";
 import jwt from "jsonwebtoken";
 
-export type Payload = { username: string };
+export type Payload = { username: string; timezone: string };
 
 export function generateAccessToken(payload: Payload) {
   return jwt.sign(

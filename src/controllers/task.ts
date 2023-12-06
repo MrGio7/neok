@@ -5,7 +5,6 @@ import { RequestHandler } from "express";
 import moment from "moment";
 import z from "zod";
 import { prisma } from "../libs/prisma";
-import { log } from "console";
 
 export const add: RequestHandler = async (req, res) => {
   const body = z

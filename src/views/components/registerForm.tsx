@@ -45,6 +45,23 @@ export default function RegisterForm({}: RegisterFormProps) {
         minLength={1}
       />
 
+      <Input
+        type="text"
+        name="timezone"
+        list="timezones"
+        label="Timezone"
+        defaultValue="Asia/Tbilisi"
+        required
+        minLength={1}
+      />
+      <datalist id="timezones">
+        {Intl.supportedValuesOf("timeZone").map((timezone) => (
+          <option key={timezone} value={timezone}>
+            {timezone}
+          </option>
+        ))}
+      </datalist>
+
       <button type="submit" className="rounded px-3 py-1 dark:bg-neutral-900">
         Register
       </button>
