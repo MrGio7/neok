@@ -8,6 +8,7 @@
     "build:server": "node esbuild.app.js",
     "build:public": "node esbuild.public.js",
     "dev": "nodemon",
+    "start": "node dist/app.js",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev"
   },
