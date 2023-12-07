@@ -7,6 +7,7 @@
     "build:tailwind": "tailwindcss -o public/css/tailwind.css",
     "build:server": "node esbuild.app.js",
     "build:public": "node esbuild.public.js",
+    "build": "concurrently npm:build:*",
     "dev": "nodemon",
     "start": "node dist/app.js",
     "prisma:generate": "prisma generate",
