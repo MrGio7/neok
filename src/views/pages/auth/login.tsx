@@ -40,13 +40,13 @@ export default function Login({}: LoginProps) {
           <fieldset className="grid grid-cols-2 gap-x-2">
             <button
               type="submit"
-              className="rounded px-3 py-1 dark:bg-neutral-900"
+              className="rounded px-3 py-1 dark:bg-neutral-800"
             >
               Login
             </button>
             <a
               href="/auth/register"
-              className="rounded px-3 py-1 dark:bg-neutral-900"
+              className="rounded px-3 py-1 dark:bg-neutral-800"
             >
               Register
             </a>

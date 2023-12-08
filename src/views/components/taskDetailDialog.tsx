@@ -77,7 +77,7 @@ export default function TaskDetailDialog({
 
         <button
           type="submit"
-          className="mt-2 rounded bg-neutral-100 px-2 py-1 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50"
+          className="mt-2 rounded bg-neutral-100 px-2 py-1 text-neutral-950 dark:bg-neutral-800 dark:text-neutral-50"
           data-loading-class="bg-red-100 hover:bg-red-200"
           data-loading-class-remove="bg-teal-100 hover:bg-teal-200"
           data-loading-disable

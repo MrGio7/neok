@@ -30,7 +30,7 @@ export default function Input({
       <input
         {...inputProps}
         className={twMerge(
-          "rounded bg-neutral-100 px-2 py-1 text-neutral-950 outline-none dark:bg-neutral-900 dark:text-neutral-50",
+          "rounded bg-neutral-100 px-2 py-1 text-neutral-950 outline-none dark:bg-neutral-800 dark:text-neutral-50",
           inputProps?.className,
         )}
       />

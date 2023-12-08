@@ -38,7 +38,7 @@ export const update: RequestHandler = async (req, res) => {
   const body = z
     .object({
       id: z.string().transform((id) => BigInt(id)),
-      name: z.string(),
+      name: z.string().optional(),
       description: z.string().optional(),
       start: z
         .string()

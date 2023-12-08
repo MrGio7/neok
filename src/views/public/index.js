@@ -8,6 +8,6 @@ document.addEventListener("click", (e) => {
 document.addEventListener("closeTaskDetailDialog", (e) => {
   const taskDetailDialog = document.getElementById("taskDetailDialog");
   const taskDetailDialogForm = taskDetailDialog.querySelector("form");
-  taskDetailDialog.close();
-  taskDetailDialogForm.reset();
+  taskDetailDialog?.close();
+  taskDetailDialogForm?.reset();
 });

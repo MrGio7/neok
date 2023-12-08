@@ -57,7 +57,7 @@ export default function AccountSettings({ user }: AccountSettingsProps) {
 
           <button
             type="submit"
-            className="rounded px-3 py-1 dark:bg-neutral-900"
+            className="rounded px-3 py-1 dark:bg-neutral-800"
           >
             Save
           </button>

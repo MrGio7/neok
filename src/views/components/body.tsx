@@ -10,7 +10,7 @@ export default function Body({
   return (
     <body
       className={twMerge(
-        "bg-neutral-100 text-neutral-950 dark:bg-neutral-900 dark:text-neutral-50",
+        "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-neutral-50",
         className,
       )}
       hx-ext="loading-states, remove-me"

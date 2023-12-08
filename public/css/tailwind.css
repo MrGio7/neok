@@ -847,9 +847,9 @@ video {
     background-color: rgb(245 245 245 / var(--tw-bg-opacity));
   }
 
-  .dark\:bg-neutral-900 {
+  .dark\:bg-neutral-800 {
     --tw-bg-opacity: 1;
-    background-color: rgb(23 23 23 / var(--tw-bg-opacity));
+    background-color: rgb(38 38 38 / var(--tw-bg-opacity));
   }
 
   .dark\:bg-white {

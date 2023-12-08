@@ -43,10 +43,8 @@ export default function Task({ task }: TaskProps): JSX.Element {
       <button
         type="button"
         className="text-2xl"
-        hx-put="/task/toggle"
-        hx-vals={`{"createdAt": "${task.createdAt.getTime()}"}`}
-        hx-target={`#task-${task.createdAt.getTime()}`}
-        hx-swap="outerHTML"
+        hx-put="/task/update"
+        hx-vals={`{"id": ${task.id}, "done": ${!task.done}}`}
       >
         {task.done ? <UnDoneSVG /> : <DoneSVG />}
       </button>
