@@ -42,7 +42,7 @@ export const login: RequestHandler = async (req, res) => {
       "Set-Cookie",
       `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${
         7 * 24 * 60 * 60
-      }; SameSite=Strict;`,
+      }; SameSite=Lax; Secure;`,
     )
     .setHeader("HX-Redirect", "/")
     .sendStatus(302);
@@ -90,7 +90,7 @@ export const register: RequestHandler = async (req, res) => {
       "Set-Cookie",
       `refreshToken=${refreshToken}; HttpOnly; Path=/; Max-Age=${
         7 * 24 * 60 * 60
-      }; SameSite=Strict;`,
+      }; SameSite=Lax; Secure;`,
     )
     .setHeader("HX-Redirect", "/")
     .sendStatus(302);
