@@ -27,12 +27,12 @@ export const login: RequestHandler = async (req, res) => {
   }
 
   const accessToken = generateAccessToken({
-    username,
+    username: user.username,
     timezone: user.timezone,
   });
 
   const refreshToken = generateRefreshToken({
-    username,
+    username: user.username,
     timezone: user.timezone,
   });
 
