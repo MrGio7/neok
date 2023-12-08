@@ -12,8 +12,8 @@ export const login: RequestHandler = async (req, res) => {
     })
     .parse(req.body);
 
-  const user = await prisma.user.findUnique({
-    where: { username },
+  const user = await prisma.user.findFirst({
+    where: { username: { equals: username, mode: "insensitive" } },
   });
 
   if (!user) {
@@ -62,8 +62,8 @@ export const register: RequestHandler = async (req, res) => {
     throw new Error("Passwords do not match");
   }
 
-  const user = await prisma.user.findUnique({
-    where: { username },
+  const user = await prisma.user.findFirst({
+    where: { username: { equals: username, mode: "insensitive" } },
   });
 
   if (user) {

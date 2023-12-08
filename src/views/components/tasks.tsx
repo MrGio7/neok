@@ -63,6 +63,11 @@ export default function Tasks({
             className="flex gap-x-1 border-b"
             hx-post="/task/add"
             hx-vals={`{"start": "${date.toISOString()}"}`}
+            hx-on="
+              htmx:afterRequest:
+                const input = this.querySelector('input');
+                input.value = ''
+            "
           >
             <Input
               type="text"
