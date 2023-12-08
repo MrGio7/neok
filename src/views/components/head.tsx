@@ -9,7 +9,7 @@ export default function Head({ children }: HeadProps) {
     <head>
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>HTMX Demo</title>
+      <title>NEOK</title>
 
       <script
         src="https://unpkg.com/htmx.org@1.9.9"
