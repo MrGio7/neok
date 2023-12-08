@@ -1,9 +1,10 @@
 {
-  "name": "test-htmx",
+  "name": "neok",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prebuild": "npm run prisma:deploy",
     "build:tailwind": "tailwindcss -o public/css/tailwind.css",
     "build:server": "node esbuild.app.js",
     "build:public": "node esbuild.public.js",
@@ -11,7 +12,8 @@
     "dev": "nodemon",
     "start": "node dist/app.js",
     "prisma:generate": "prisma generate",
-    "prisma:migrate": "prisma migrate dev"
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
