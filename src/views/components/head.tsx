@@ -21,6 +21,7 @@ export default function Head({ children }: HeadProps) {
 
       <link rel="stylesheet" href="/css/index.css" />
       <link rel="stylesheet" href="/css/tailwind.css" />
+      <link rel="manifest" href="manifest.json" />
       {children}
     </head>
   );
