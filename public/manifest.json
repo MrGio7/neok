@@ -1,0 +1,15 @@
+{
+  "name": "NoteBook",
+  "short_name": "NEOK",
+  "description": "NoteBook is a simple note taking app that allows you to take notes and save them to your device.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/svg/logo.svg",
+      "sizes": "any"
+    }
+  ]
+}
