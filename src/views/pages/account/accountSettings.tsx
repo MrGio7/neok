@@ -15,7 +15,7 @@ export default function AccountSettings({ user }: AccountSettingsProps) {
       <Body className="flex h-full flex-col justify-center px-5">
         <form
           hx-post="/account/update"
-          className="flex flex-col items-center justify-center gap-y-2 rounded p-5 dark:bg-white"
+          className="flex flex-col items-center justify-center gap-y-2 rounded bg-white p-5"
           hx-swap="none"
         >
           <a href="/">
@@ -55,10 +55,7 @@ export default function AccountSettings({ user }: AccountSettingsProps) {
             ))}
           </datalist>
 
-          <button
-            type="submit"
-            className="rounded px-3 py-1 dark:bg-neutral-800"
-          >
+          <button type="submit" className="rounded bg-neutral-700 px-3 py-1">
             Save
           </button>
         </form>

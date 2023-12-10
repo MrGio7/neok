@@ -9,10 +9,7 @@ export default function Body({
 }: React.HTMLAttributes<HTMLBodyElement>) {
   return (
     <body
-      className={twMerge(
-        "bg-neutral-100 text-neutral-950 dark:bg-neutral-800 dark:text-neutral-50",
-        className,
-      )}
+      className={twMerge("bg-neutral-700 text-neutral-50", className)}
       hx-ext="loading-states, remove-me"
       {...props}
     >

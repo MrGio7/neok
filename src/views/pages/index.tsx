@@ -24,7 +24,7 @@ export default function Index({
       <Body>
         <Header user={user} selectedDate={selectedDate} />
 
-        <main>
+        <main className="mt-7 text-xl">
           <Tasks tasks={tasks} user={user} selectedDate={selectedDate} />
 
           <TaskDetailDialog user={user} />

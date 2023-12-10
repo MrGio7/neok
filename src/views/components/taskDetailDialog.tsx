@@ -19,11 +19,11 @@ export default function TaskDetailDialog({
   return (
     <dialog
       id="taskDetailDialog"
-      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded bg-neutral-100 p-5 shadow shadow-neutral-950 dark:bg-neutral-100"
+      className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded bg-neutral-100/90 p-5 shadow shadow-neutral-950"
       open
     >
       <form
-        className="flex flex-col gap-y-1"
+        className="m-0 flex flex-col gap-y-3"
         hx-put="/task/update"
         hx-vals={`{"id": ${task.id}}`}
         hx-on="htmx:configRequest:
@@ -37,35 +37,23 @@ export default function TaskDetailDialog({
           !!end && (event.detail.parameters.end = new Date(end).toISOString());
         "
       >
-        <Input type="text" name="name" label="Name" defaultValue={task.name} />
+        <Input
+          type="text"
+          name="name"
+          defaultValue={task.name}
+          className="bg-transparent text-neutral-900"
+          containerProps={{
+            className: "border-b border-neutral-500",
+          }}
+        />
         <Input
           type="text"
           name="description"
-          label="Description"
+          placeholder="Description"
           defaultValue={task.description || ""}
-        />
-        <DateInput
-          type="datetime-local"
-          name="start"
-          label="Start"
-          defaultValue={task.start || undefined}
-          format={{
-            dateStyle: "medium",
-            timeStyle: "short",
-            hour12: false,
-            timeZone: user.timezone,
-          }}
-        />
-        <DateInput
-          type="datetime-local"
-          label="End"
-          name="end"
-          defaultValue={task.end || undefined}
-          format={{
-            dateStyle: "medium",
-            timeStyle: "short",
-            hour12: false,
-            timeZone: user.timezone,
+          className="bg-transparent text-neutral-900"
+          containerProps={{
+            className: "border-b border-neutral-500",
           }}
         />
 
@@ -75,15 +63,19 @@ export default function TaskDetailDialog({
           )}
         />
 
-        <button
-          type="submit"
-          className="mt-2 rounded bg-neutral-100 px-2 py-1 text-neutral-950 dark:bg-neutral-800 dark:text-neutral-50"
-          data-loading-class="bg-red-100 hover:bg-red-200"
-          data-loading-class-remove="bg-teal-100 hover:bg-teal-200"
-          data-loading-disable
-        >
-          Save
-        </button>
+        <fieldset className="mt-5 flex w-full items-center gap-x-2">
+          <button type="button" hx-delete="/task/remove">
+            <img src="/svg/trashCan.svg" alt="delete icon" className="w-10" />
+          </button>
+
+          <button
+            type="submit"
+            className="w-full rounded bg-neutral-700 px-2 py-1 text-neutral-50"
+            data-loading-disable
+          >
+            Save
+          </button>
+        </fieldset>
       </form>
     </dialog>
   );

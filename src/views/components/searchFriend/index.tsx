@@ -11,12 +11,16 @@ export default function SearchFriend({ friends = "" }: SearchFriendInputProps) {
       <Input
         type="search"
         name="friend"
-        label="Friends"
+        placeholder="Search friend"
         defaultValue={friends}
         hx-post="/search-friend"
         hx-trigger="input changed delay:300ms, friend"
         hx-target="#search-friend-suggestions"
         hx-swap="outerHTML"
+        className="bg-transparent text-neutral-900"
+        containerProps={{
+          className: "border-b border-neutral-500",
+        }}
       />
 
       <SearchFriendSuggestions />

@@ -14,24 +14,10 @@ export default function Task({ task }: TaskProps): JSX.Element {
     <li
       id={`task-${task.id}`}
       className={twMerge(
-        "flex items-center gap-x-2 border-b",
+        "flex items-center gap-x-2 border-b border-b-neutral-500",
         task.done && "line-through",
       )}
     >
-      <span
-        className="w-10 shrink-0 cursor-pointer text-center"
-        hx-get="/task/info"
-        hx-vals={`{"id": ${task.id}}`}
-      >
-        {!!task.start
-          ? task.start.toLocaleTimeString("en", {
-              hour: "2-digit",
-              minute: "2-digit",
-              hour12: false,
-            })
-          : "--:--"}
-      </span>
-
       <span
         className="w-full cursor-pointer overflow-hidden text-ellipsis"
         hx-get="/task/info"
@@ -42,7 +28,7 @@ export default function Task({ task }: TaskProps): JSX.Element {
 
       <button
         type="button"
-        className="text-2xl"
+        className="select-none text-2xl focus:bg-transparent"
         hx-put="/task/update"
         hx-vals={`{"id": ${task.id}, "done": ${!task.done}}`}
       >

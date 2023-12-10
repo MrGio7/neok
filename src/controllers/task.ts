@@ -122,5 +122,10 @@ export const remove: RequestHandler = async (req, res) => {
 
   await prisma.task.delete({ where: { id } });
 
+  res
+    .setHeader("HX-Retarget", `#task-${id}`)
+    .setHeader("HX-Reswap", "outerHTML")
+    .setHeader("HX-Trigger", "closeTaskDetailDialog");
+
   res.send("");
 };

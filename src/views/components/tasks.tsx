@@ -1,10 +1,8 @@
 import { Task as TTask } from "@prisma/client";
 import React from "react";
 import { User } from "src/app";
-import { AddSVG } from "../assets/svg";
-import Task from "./task";
-import moment from "moment-timezone";
 import Input from "./input";
+import Task from "./task";
 
 interface TasksProps {
   tasks?: TTask[];
@@ -26,18 +24,18 @@ export default function Tasks({
   });
 
   return (
-    <ul className="flex flex-col gap-y-5 px-5">
+    <ul className="flex select-none flex-col gap-y-8 px-5">
       {weekDays.map((date, idx) => (
-        <li key={idx} className="flex flex-col gap-y-2">
+        <li key={idx} className="flex flex-col gap-y-5">
           <section className="flex justify-between border-b-2">
-            <span>
+            <span className="text-lg italic">
               {date.toLocaleDateString("en", {
                 month: "short",
                 day: "numeric",
                 timeZone: user.timezone,
               })}
             </span>
-            <span>
+            <span className="text-neutral-500">
               {date.toLocaleDateString("en", {
                 weekday: "short",
                 timeZone: user.timezone,
@@ -49,7 +47,7 @@ export default function Tasks({
             id={`tasks_${date.toLocaleDateString("sv", {
               timeZone: user.timezone,
             })}`}
-            className="flex flex-col gap-y-5"
+            className="flex flex-col gap-y-5 empty:hidden"
           >
             {tasks
               .filter(
@@ -59,8 +57,9 @@ export default function Tasks({
                 <Task key={task.createdAt.getTime()} task={task} user={user} />
               ))}
           </ul>
+
           <form
-            className="flex gap-x-1 border-b"
+            className="m-0 border-b border-b-neutral-500"
             hx-post="/task/add"
             hx-vals={`{"start": "${date.toISOString()}"}`}
             hx-on="
@@ -73,11 +72,9 @@ export default function Tasks({
               type="text"
               name="name"
               placeholder="Add New Task"
+              className="h-7 placeholder:text-neutral-500"
               containerProps={{ className: "w-full" }}
             />
-            <button type="submit" className="text-3xl">
-              <AddSVG />
-            </button>
           </form>
         </li>
       ))}

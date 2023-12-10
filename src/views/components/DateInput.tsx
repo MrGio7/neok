@@ -32,7 +32,7 @@ export default function DateInput({
       )}
       <span
         className={twMerge(
-          "h-[32px] w-full rounded bg-neutral-100 px-2 py-1 text-left text-neutral-950 dark:bg-neutral-800 dark:text-neutral-50",
+          "h-[32px] w-full rounded px-2 py-1 text-left",
           inputClassName,
         )}
       >

@@ -1,6 +1,5 @@
 import React from "react";
 import { User } from "src/app";
-import { AccountSVG, LeftArrowSVG, RightArrowSVG } from "../assets/svg";
 import DateInput from "./DateInput";
 
 interface HeaderProps {
@@ -10,8 +9,9 @@ interface HeaderProps {
 
 export default function Header({ user, selectedDate }: HeaderProps) {
   return (
-    <header className="grid grid-cols-3 px-3 py-2">
-      <section className="flex gap-x-1 text-xl">
+    <header className="grid w-full grid-cols-[0.2fr_1fr_0.2fr] px-3 py-2">
+      <div></div>
+      <section className="flex justify-center gap-x-1 text-2xl">
         <button
           type="button"
           id="prevWeekBtn"
@@ -24,12 +24,28 @@ export default function Header({ user, selectedDate }: HeaderProps) {
             window.location.href = `/?date=${prevWeek}`;
           "
         >
-          <LeftArrowSVG className="text-3xl" />
+          <img src="/svg/leftArrow.svg" alt="left arrow icon" className="w-8" />
         </button>
-        <button type="button" id="nextWeekBtn">
-          <RightArrowSVG
-            className="text-3xl"
-            hx-on:click="
+
+        <DateInput
+          name="headerDateInput"
+          type="date"
+          format={{
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            timeZone: user.timezone,
+          }}
+          onChange="window.location.href = `/?date=${this.value}`"
+          // inputClassName="text-center"
+          defaultValue={selectedDate}
+          inputClassName="leading-none"
+        />
+
+        <button
+          type="button"
+          id="nextWeekBtn"
+          hx-on:click="
               const currentUrl = new URL(window.location.href);
               const nextWeekDate = new Date(currentUrl.searchParams.get('date'));
               nextWeekDate.setDate(nextWeekDate.getDate() + 7);
@@ -37,30 +53,19 @@ export default function Header({ user, selectedDate }: HeaderProps) {
           
               window.location.href = `/?date=${nextWeek}`;
             "
+        >
+          <img
+            src="/svg/rightArrow.svg"
+            alt="right arrow icon"
+            className="w-8"
           />
         </button>
       </section>
 
-      <DateInput
-        name="headerDateInput"
-        type="date"
-        format={{
-          weekday: "short",
-          month: "short",
-          day: "numeric",
-          timeZone: user.timezone,
-        }}
-        onChange="window.location.href = `/?date=${this.value}`"
-        inputClassName="text-center"
-        defaultValue={selectedDate}
-      />
-
       <section className="group relative flex items-center gap-x-2 place-self-end">
-        <span>{user.username}</span>
+        <img src="/svg/account.svg" alt="account icon" className="w-9" />
 
-        <AccountSVG className="text-3xl" />
-
-        <article className="absolute right-0 top-full hidden flex-col items-end gap-y-1 rounded bg-neutral-100 px-3 py-2 shadow group-hover:flex dark:bg-neutral-100 dark:text-neutral-950 dark:shadow-none">
+        <article className="absolute right-0 top-full hidden flex-col items-end gap-y-1 rounded bg-neutral-100 px-3 py-2 text-neutral-950 group-hover:flex">
           <a href="/account/settings">Settings</a>
           <button type="button" hx-get="/auth/logout" hx-swap="none">
             Logout

@@ -21,7 +21,7 @@ export default function Input({
       {label && (
         <span
           {...labelProps}
-          className={twMerge("dark:text-neutral-950", labelProps?.className)}
+          className={twMerge("text-neutral-950", labelProps?.className)}
         >
           {label}
         </span>
@@ -30,7 +30,7 @@ export default function Input({
       <input
         {...inputProps}
         className={twMerge(
-          "rounded bg-neutral-100 px-2 py-1 text-neutral-950 outline-none dark:bg-neutral-800 dark:text-neutral-50",
+          "rounded border-b bg-neutral-700 px-2 py-1 text-neutral-50 outline-none",
           inputProps?.className,
         )}
       />

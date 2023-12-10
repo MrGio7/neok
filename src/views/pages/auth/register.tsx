@@ -13,7 +13,7 @@ export default function Register({}: RegisterProps) {
         <form
           id="register-form"
           hx-post="/auth/register"
-          className="flex flex-col items-center justify-center gap-y-2 rounded p-5 dark:bg-white"
+          className="flex flex-col items-center justify-center gap-y-2 rounded bg-white p-5"
         >
           <img
             src="/svg/logo.svg"
@@ -62,10 +62,7 @@ export default function Register({}: RegisterProps) {
             ))}
           </datalist>
 
-          <button
-            type="submit"
-            className="rounded px-3 py-1 dark:bg-neutral-800"
-          >
+          <button type="submit" className="rounded bg-neutral-700 px-3 py-1">
             Register
           </button>
         </form>
